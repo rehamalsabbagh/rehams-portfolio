@@ -28,7 +28,10 @@ export default function Home() {
               <Button
                 color="secondary"
                 sx={{ ml: 2 }}
-                href="/assets/Reham Alsabbagh - resume.pdf"
+                href={
+                  process.env.PUBLIC_URL +
+                  "/assets/Reham Alsabbagh - resume.pdf"
+                }
                 target="_blank"
               >
                 Resume
@@ -67,7 +70,7 @@ export default function Home() {
                 sx={{
                   height: 200,
                   backgroundColor: "#E5E7EB",
-                  backgroundImage: `url(${project.cover})`,
+                  backgroundImage: `url(${process.env.PUBLIC_URL + project.cover})`,
                   backgroundPosition: "center",
                   backgroundSize: "105% auto",
                   backgroundRepeat: "no-repeat",

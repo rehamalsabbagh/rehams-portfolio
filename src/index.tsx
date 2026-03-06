@@ -4,10 +4,13 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { ThemeProvider } from "@mui/material";
 import { theme } from "./theme";
+import { BrowserRouter } from "react-router-dom";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <ThemeProvider theme={theme}>
-    <App />
+    <BrowserRouter basename="/rehams-portfolio">
+      <App />
+    </BrowserRouter>
   </ThemeProvider>,
 );
 

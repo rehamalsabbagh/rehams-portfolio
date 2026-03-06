@@ -10,7 +10,7 @@ import ScrollToTop from "./components/ScrollToTop";
 
 export default function App() {
   return (
-    <Router>
+    <>
       <CssBaseline /> {/* Reset browser default styles */}
       <Navbar />
       <ScrollToTop></ScrollToTop>
@@ -24,6 +24,6 @@ export default function App() {
 
         <Footer></Footer>
       </Box>
-    </Router>
+    </>
   );
 }

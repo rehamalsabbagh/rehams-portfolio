@@ -37,7 +37,8 @@ export default function ProjectDetail() {
 
         <Box
           sx={{
-            backgroundImage: "url(" + project.cover + ")",
+            backgroundImage:
+              "url(" + process.env.PUBLIC_URL + project.cover + ")",
             backgroundPosition: "center",
             backgroundSize: "cover",
             height: "70vh",
@@ -120,7 +121,7 @@ export default function ProjectDetail() {
               }}
             >
               <img
-                src={project.image}
+                src={process.env.PUBLIC_URL + project.image}
                 alt={project.image}
                 style={{ width: "100%" }}
               ></img>
@@ -236,7 +237,7 @@ export default function ProjectDetail() {
                           {sub.images?.map((image, index) => (
                             <img
                               key={index}
-                              src={image}
+                              src={process.env.PUBLIC_URL + image}
                               alt={image}
                               style={{ width: "100%", marginTop: "2vh" }}
                             ></img>
@@ -283,7 +284,7 @@ export default function ProjectDetail() {
                         md: "20vw",
                       },
                       backgroundColor: "#E5E7EB",
-                      backgroundImage: `url(${project.cover})`,
+                      backgroundImage: `url(${process.env.PUBLIC_URL + project.cover})`,
                       backgroundPosition: "center",
                       backgroundSize: "cover",
                       backgroundRepeat: "no-repeat",
