@@ -3,6 +3,7 @@ import { ReactNode, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import AnimatedSection from "../components/AnimatedSection";
 import { ScrollNext } from "../components/ScrollNext";
+import { Download, DownloadDoneSharp } from "@mui/icons-material";
 
 /**
  * Reusable Animation Wrapper
@@ -38,7 +39,7 @@ const Reveal = ({
     if (isVisible) return "translate(0, 0)";
     switch (direction) {
       case "up":
-        return "translateY(80px)";
+        return "translateY(50px)";
       case "left":
         return "translateX(-50px)";
       case "right":
@@ -201,7 +202,7 @@ const Home = () => {
           <Box sx={{ p: 4, textAlign: "center" }}>
             <Typography
               variant="poster"
-              sx={{ marginBottom: "7vh", display: "block" }}
+              sx={{ marginBottom: "7vh", display: "block", letterSpacing: 10 }}
             >
               REHAM ALSABBAGH
             </Typography>
@@ -246,7 +247,7 @@ const Home = () => {
         </AnimatedSection>
 
         <Box display="flex" position="absolute" bottom="3vh">
-          <ScrollNext targetId="about" label="About" delay={1.1} />
+          <ScrollNext targetId="about" label="About" delay={0.7} />
         </Box>
       </Box>
 
@@ -256,37 +257,28 @@ const Home = () => {
         ref={aboutRef}
         sx={{
           ...sectionBaseStyles,
+          minHeight: "100vh",
+          display: "flex",
+          flexDirection: "column", // Stack content and the ScrollNext button
+          alignItems: "center",
+          justifyContent: "center",
         }}
       >
-        <Box sx={{ width: { xs: "100%", md: "35vw" }, textAlign: "center" }}>
-          <img
-            src={`${process.env.PUBLIC_URL}/assets/reham-alsabbagh.png`}
-            alt="Reham avatar"
-            style={{
-              width: "25vw",
-              minWidth: "280px",
-              borderRadius: "500px",
-              opacity: isAboutMeVisible ? 1 : 0,
-              transform: isAboutMeVisible
-                ? "translateY(0)"
-                : "translateY(20px)",
-              transition: "all 1s ease-out",
-            }}
-          />
-        </Box>
-
+        {/* 1. THE CONTENT WRAPPER: This defines the border's size */}
         <Box
           sx={{
-            width: { xs: "100%", md: "35vw" },
-            zIndex: 3,
-            padding: "40px", // Increased padding slightly for the rounded corners
-            position: "relative",
             display: "flex",
-            flexDirection: "column",
+            flexDirection: { xs: "column", md: "row" },
+            alignItems: "center",
             justifyContent: "center",
+            position: "relative",
+            padding: { xs: "40px 20px", md: "4vh 3vh" }, // Internal spacing from the border
+            gap: "2vw",
+            width: "fit-content", // Shrinks the box to hug the avatar + text
+            maxWidth: "90vw",
           }}
         >
-          {/* The Animated Rounded Border SVG */}
+          {/* THE SVG BORDER: Now relative to THIS box */}
           <svg
             style={{
               position: "absolute",
@@ -301,7 +293,7 @@ const Home = () => {
             <rect
               x="0"
               y="0"
-              rx="40" // Your specific radius
+              rx="40"
               ry="40"
               width="100%"
               height="100%"
@@ -312,30 +304,122 @@ const Home = () => {
               strokeDasharray="1"
               strokeDashoffset={isAboutMeVisible ? "0" : "1"}
               style={{
-                transition:
-                  "stroke-dashoffset 1.5s cubic-bezier(0.4, 0, 0.2, 1)",
+                transition: "stroke-dashoffset 2s cubic-bezier(0.4, 0, 0.2, 1)",
               }}
             />
           </svg>
 
-          <Typography variant="h2" sx={{ color: "secondary.main", mb: 3 }}>
-            About Me
-          </Typography>
-          <Typography
-            variant="h6"
-            sx={{ color: "primary.main", lineHeight: 1.6 }}
+          {/* 2. AVATAR BOX: Smaller width */}
+          <Box
+            sx={{
+              width: { xs: "100%", md: "20vw" },
+              textAlign: "center",
+              zIndex: 3,
+            }}
           >
-            Senior Frontend Developer with 9+ years of experience delivering
-            high-quality, accessible web applications for fintech and enterprise
-            clients. Expert in React, modern UI architectures, and translating
-            UX designs into scalable, maintainable code. Experienced in leading
-            frontend projects, building design systems, and collaborating
-            closely with product and UX teams. Holds a Master’s in UX Design.
-          </Typography>
+            <img
+              src={`${process.env.PUBLIC_URL}/assets/reham-alsabbagh.png`}
+              alt="Reham avatar"
+              style={{
+                width: "100%",
+                maxWidth: "280px",
+                borderRadius: "500px",
+                opacity: isAboutMeVisible ? 1 : 0,
+                transform: isAboutMeVisible
+                  ? "translateY(0)"
+                  : "translateY(20px)",
+                transition: "all 1s ease-out",
+              }}
+            />
+          </Box>
+
+          {/* 3. TEXT BOX: Larger width */}
+          <Box
+            sx={{
+              width: { xs: "100%", md: "45vw" },
+              zIndex: 3,
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
+            <Typography variant="h2" sx={{ color: "secondary.main", mb: 3 }}>
+              About Me
+            </Typography>
+            <Typography
+              variant="h6"
+              sx={{ color: "primary.main", lineHeight: 1.6 }}
+            >
+              Senior Frontend Developer with 9+ years of experience delivering
+              high-quality, accessible web applications for fintech and
+              enterprise clients. Expert in React, modern UI architectures, and
+              translating UX designs into scalable, maintainable code.
+              Experienced in leading frontend projects, building design systems,
+              and collaborating closely with product and UX teams. Holds a
+              Master’s in UX Design.
+            </Typography>
+
+            {/* Skills Grouping */}
+            <Box
+              sx={{ mt: 4, display: "flex", flexDirection: "column", gap: 1 }}
+            >
+              <Reveal delay={0.2}>
+                <Box display="flex" flexWrap="wrap" gap={1}>
+                  {[
+                    "React",
+                    "TypeScript",
+                    "JavaScript",
+                    "Component-driven",
+                    "HTML5",
+                    "CSS3",
+                    "Tailwind",
+                    "Sass",
+                  ].map((s) => (
+                    <NavChip key={s} label={s} />
+                  ))}
+                </Box>
+              </Reveal>
+              <Reveal delay={0.2}>
+                <Box display="flex" flexWrap="wrap" gap={1}>
+                  {[
+                    "Redux",
+                    "React Query",
+                    "REST",
+                    "GraphQL",
+                    "React Testing Library",
+                  ].map((s) => (
+                    <NavChip key={s} label={s} />
+                  ))}
+                </Box>
+              </Reveal>
+
+              <Reveal delay={0.2}>
+                <Box display={"flex"} flexWrap="wrap" gap={1}>
+                  {["Git", "Unity DevOps", "Webpack", "Agile", "Scrum"].map(
+                    (label) => (
+                      <NavChip key={label} label={label} />
+                    ),
+                  )}
+                </Box>
+              </Reveal>
+              {/* <Reveal delay={0.2}>
+                <Box
+                  display={"flex"}
+                  gap={"7px"}
+                  marginTop={"2vh"}
+                  justifyContent={"flex-end"}
+                  alignItems={"anchor-center"}
+                >
+                  <Typography variant="body1">Download Resume</Typography>
+                  <Download sx={{ fontSize: "1em", verticalAlign: "bottom" }} />
+                </Box>
+              </Reveal> */}
+            </Box>
+          </Box>
         </Box>
 
+        {/* 4. SCROLL BUTTON: Outside the border box */}
         <Box display="flex" position="absolute" bottom="3vh">
-          <ScrollNext targetId="projects" label="Projects" delay={1.3} />
+          <ScrollNext targetId="projects" label="Projects" delay={2.2} />
         </Box>
       </Box>
 

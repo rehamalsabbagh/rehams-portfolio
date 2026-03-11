@@ -101,7 +101,7 @@ export const ScrollNext = ({
       </Typography>
       <KeyboardArrowDownIcon
         color="secondary"
-        sx={{ animation: `${bounce} 4s 3` }}
+        sx={{ animation: `${bounce} 4s 1` }}
       />
     </Box>
   );

@@ -25,8 +25,8 @@ export const theme = createTheme({
   typography: {
     fontFamily: "Instrument Sans, system-ui, sans-serif",
     poster: {
-      fontSize: "6rem",
-      fontWeight: 700,
+      fontSize: "5.5rem",
+      fontWeight: 500,
       lineHeight: 1.2,
       display: "block",
     },
