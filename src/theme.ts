@@ -61,6 +61,7 @@ export const theme = createTheme({
     body1: {
       fontSize: "1rem",
       lineHeight: 1.7,
+      letterSpacing: 0.6,
     },
     caption: {
       fontSize: "0.875rem",

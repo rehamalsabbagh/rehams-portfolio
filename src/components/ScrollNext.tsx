@@ -55,6 +55,7 @@ export const ScrollNext = ({
         transition: "opacity 0.8s ease, transform 0.8s ease",
         ":hover": {
           opacity: isVisible ? 1 : 0,
+          transform: "translateY(5px)",
         },
       }}
     >
