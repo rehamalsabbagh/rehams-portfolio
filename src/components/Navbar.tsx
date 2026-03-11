@@ -20,8 +20,9 @@ export default function Navbar() {
       position="fixed"
       elevation={0}
       sx={{
-        backgroundColor: scrolled ? "#f3f4f6" : "primary",
-        color: scrolled ? "#000" : "#fff", // optional: adjust text color
+        backgroundColor: scrolled ? "transparent" : "transparent",
+        // "#f3f4f6": "primary",
+        color: scrolled ? "#000" : "#000", // optional: adjust text color
         transition: "background-color 0.4s ease, color 0.4s ease",
         boxShadow: "1px 1px 20px #0000000a",
       }}

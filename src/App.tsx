@@ -7,11 +7,13 @@ import About from "./pages/About";
 import ProjectDetail from "./pages/ProjectDetail";
 import Footer from "./components/Footer";
 import ScrollToTop from "./components/ScrollToTop";
+import { CursorGlow } from "./components/CursorGlow";
 
 export default function App() {
   return (
     <>
       <CssBaseline /> {/* Reset browser default styles */}
+      <CursorGlow></CursorGlow>
       <Navbar />
       <ScrollToTop></ScrollToTop>
       <Box sx={{ position: "relative", minHeight: "100vh", height: "100%" }}>
@@ -21,7 +23,6 @@ export default function App() {
           {/* <Route path="/projects" element={<Projects />} /> */}
           <Route path="/projects/:id" element={<ProjectDetail />} />
         </Routes>
-
         <Footer></Footer>
       </Box>
     </>

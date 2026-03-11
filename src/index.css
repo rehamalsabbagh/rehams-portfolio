@@ -1,10 +1,43 @@
+@keyframes slowPan {
+  0% {
+    background-position:
+      100% 0%,
+      center;
+  }
+  50% {
+    background-position:
+      100% 100%,
+      center;
+  }
+  100% {
+    background-position:
+      100% 0%,
+      center;
+  }
+}
+
 body {
   margin: 0;
-  font-family:
-    -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
-    "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  /* Your existing fonts... */
+
+  background-image:
+    url(/public/assets/r-a-background.png),
+    radial-gradient(circle, #a5a5a5, #ebebeb);
+
+  background-size: 100%;
+
+  /* 1. Make the background image larger than the screen so it can move */
+  /* background-size:
+    120% 120%,
+    cover;
+  background-repeat: no-repeat; */
+
+  /* 2. Apply the animation */
+  animation: slowPan 40s ease-in-out normal;
+  animation-iteration-count: infinite;
+
+  /* Ensure the body fills the screen for the animation to be visible */
+  min-height: 100vh;
 }
 
 code {
@@ -14,3 +47,12 @@ code {
 li > p {
   margin-bottom: 10px !important;
 }
+
+/* @font-face {
+  font-family: handwrite;
+  src: url(/public/assets/fonts/NothingYouCouldDo-Regular.ttf); 
+}
+
+.handwrite {
+  font-family: handwrite !important; 
+} */

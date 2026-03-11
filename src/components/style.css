@@ -1,0 +1,29 @@
+:root {
+  --mouse-x: 0px;
+  --mouse-y: 0px;
+}
+
+.cursor-glow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(
+    circle,
+    rgba(25, 118, 210, 0.15) 0%,
+    transparent 70%
+  );
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  /* This is the secret sauce for smoothness */
+  transform: translate3d(
+    calc(var(--mouse-x) - 300px),
+    calc(var(--mouse-y) - 300px),
+    0
+  );
+  /* Optional: adds a slight lag for a "liquid" feel */
+  transition: transform 0.15s cubic-bezier(0.23, 1, 0.32, 1);
+  will-change: transform;
+}
