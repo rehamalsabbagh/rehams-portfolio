@@ -1,6 +1,5 @@
 import { Box, Chip, Typography, useTheme } from "@mui/material";
 import { ReactNode, useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
 import { ScrollNext } from "../components/ScrollNext";
 import { sectionBaseStyles } from "../components/style";
 import { AboutSection } from "../components/AboutSection";
@@ -208,12 +207,8 @@ const Home = () => {
         id="projects"
         title="3D Plane Seat Configurator"
         subtitle="Enterprise Architecture & 3D Visualization"
-        description="An enterprise React and Three.js application for real-time
-              aircraft layout customization. Powered by a centralized CSV
-              structure, the platform dynamically manages seating, pricing, and
-              3D visualizations, streamlining complex engineering into an
-              AWS-integrated, data-driven workflow."
-        linkTo=""
+        description="An enterprise React and Three.js application for real-time aircraft customization that leverages a centralized CSV structure to dynamically manage seating, pricing, and 3D visualizations within an AWS-integrated, data-driven workflow."
+        linkTo="/projects/3d-plane-seat-configurator"
         baseImg="/assets/15-3d-config-.png"
         hoverImg="/assets/16-3d-config-.png"
         nextTargetId="project2"
@@ -225,12 +220,8 @@ const Home = () => {
         id="project2"
         title="2D 360° Vehicle Configurator"
         subtitle="Enterprise Architecture & 3D Visualization"
-        description="An enterprise React and Three.js application for real-time
-              aircraft layout customization. Powered by a centralized CSV
-              structure, the platform dynamically manages seating, pricing, and
-              3D visualizations, streamlining complex engineering into an
-              AWS-integrated, data-driven workflow."
-        linkTo=""
+        description="An enterprise React and Three.js application for real-time aircraft customization that leverages a centralized CSV structure to dynamically manage seating, pricing, and 3D visualizations within an AWS-integrated, data-driven workflow."
+        linkTo="/projects/2d-vehicle-configurator"
         baseImg="/assets/17-2d-config-.png"
         hoverImg="/assets/18-2d-config-.png"
         nextTargetId=""

@@ -31,8 +31,14 @@ export const theme = createTheme({
       display: "block",
     },
     h1: {
-      fontSize: "3.5rem", // Bumped slightly to contrast with poster
       fontWeight: 700,
+      xs: {
+        fontSize: "2.5rem",
+        lineHeight: 1.5,
+      },
+      lg: {
+        fontSize: "3.5rem",
+      },
     },
     h2: {
       fontSize: "2.2rem",

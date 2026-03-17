@@ -64,7 +64,7 @@ export const AboutSection = ({
       <Box
         sx={{
           display: "flex",
-          flexDirection: { xs: "column", md: "row" },
+          flexDirection: { xs: "column", lg: "row" },
           alignItems: "center",
           justifyContent: "center",
           position: "relative",
@@ -108,7 +108,7 @@ export const AboutSection = ({
         {/* 2. AVATAR BOX */}
         <Box
           sx={{
-            width: { xs: "100%", md: "20vw" },
+            width: { xs: "100%", lg: "20vw" },
             textAlign: "center",
             zIndex: 3,
           }}
@@ -118,8 +118,8 @@ export const AboutSection = ({
             src={`${process.env.PUBLIC_URL}/assets/reham-alsabbagh.png`}
             alt="Reham avatar"
             sx={{
-              width: "100%",
-              maxWidth: "280px",
+              // width: "100%",
+              maxWidth: { xs: "140px", lg: "280px" },
               borderRadius: "500px",
               opacity: isAboutMeVisible ? 1 : 0,
               transform: isAboutMeVisible
@@ -135,7 +135,7 @@ export const AboutSection = ({
           sx={{
             width: { xs: "100%", md: "45vw" },
             zIndex: 3,
-            textAlign: "left",
+            textAlign: { xs: "center", lg: "left" },
           }}
         >
           <Typography
@@ -173,22 +173,25 @@ export const AboutSection = ({
               lineHeight: 1.8,
               opacity: 0.85,
               fontSize: "1.1rem",
-              mb: 5,
+              mb: { xs: 0, lg: 5 },
             }}
           >
             Senior Frontend Developer with{" "}
-            <Highlight>9+ years of experience</Highlight> delivering
-            high-quality, accessible web applications for fintech and enterprise
-            clients. Expert in React, modern UI architectures, and translating
-            UX designs into scalable, maintainable code. Experienced in leading
-            frontend projects, building design systems, and collaborating
-            closely with product and UX teams. Hold a{" "}
-            <Highlight>Master’s in UX Design</Highlight> to bridge engineering
-            with user-centricity.
+            <Highlight>9+ years of experience</Highlight> building high-quality,
+            accessible fintech and enterprise applications. Expert in React and
+            modern UI architectures, I lead frontend projects and design
+            systems, translating complex UX into scalable code. With a{" "}
+            <Highlight>Master’s in UX Design</Highlight>, I specialized in
+            bridging the gap between robust engineering and user-centricity.
           </Typography>
 
           {/* LEVEL 4: CORE EXPERTISE */}
-          <Box sx={{ display: "flex", flexDirection: "column" }}>
+          <Box
+            sx={{
+              display: { xs: "none", lg: "flex" },
+              flexDirection: "column",
+            }}
+          >
             <Typography
               variant="h5"
               sx={{

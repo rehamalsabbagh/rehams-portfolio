@@ -42,16 +42,23 @@ export const ProjectSection = ({
         position: "relative",
         display: "flex",
         flexDirection: {
-          xs: "column",
-          md: imageFirst ? "row-reverse" : "row",
+          xs: "column-reverse",
+          lg: imageFirst ? "row-reverse" : "row",
         },
         alignItems: "center",
         justifyContent: "center",
-        gap: { xs: 4, md: "5vw" },
+        gap: { xs: 1, lg: "5vw" },
       }}
     >
       {/* TEXT CONTENT COLUMN */}
-      <Box sx={{ width: { xs: "100%", md: "25vw" }, zIndex: 3, p: 4 }}>
+      <Box
+        sx={{
+          width: { xs: "100%", lg: "25vw" },
+          zIndex: 3,
+          p: { xs: 1, lg: 4 },
+          textAlign: { xs: "center", lg: "left" },
+        }}
+      >
         <Reveal direction="up">
           <Typography
             variant="h3"
@@ -60,7 +67,7 @@ export const ProjectSection = ({
               fontWeight: 900,
               textTransform: "uppercase",
               letterSpacing: -0.5,
-              fontSize: { xs: "1.8rem", md: "2.2rem" },
+              fontSize: { xs: "1.8rem", lg: "2.2rem" },
               lineHeight: 1.1,
               marginBottom: "1.5vh",
             }}
@@ -124,7 +131,7 @@ export const ProjectSection = ({
       {/* IMAGE / PREVIEW COLUMN */}
       <Box
         sx={{
-          width: { xs: "100%", md: "45vw" },
+          width: { xs: "100%", lg: "45vw" },
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -152,7 +159,7 @@ const MacbookPreview = ({
 }) => {
   const publicPath = process.env.PUBLIC_URL;
   const commonStyles = {
-    height: "55vh",
+    height: { xs: "190px", sm: "350px", lg: "50vh" },
     minWidth: "280px",
     position: "absolute" as const,
   };
@@ -161,14 +168,19 @@ const MacbookPreview = ({
     <Box
       sx={{
         position: "relative",
-        height: "55vh",
+        height: { xs: "190px", sm: "350px", lg: "50vh" },
         width: "100%",
         display: "flex",
         justifyContent: "center",
       }}
     >
       {/* Base Image */}
-      <img src={`${publicPath}${baseImg}`} style={commonStyles} alt="base" />
+      <Box
+        component="img"
+        src={`${publicPath}${baseImg}`}
+        sx={commonStyles}
+        alt="base"
+      />
 
       {/* Hover Image */}
       <Box
@@ -184,9 +196,10 @@ const MacbookPreview = ({
       />
 
       {/* Frame (Always on Top) */}
-      <img
+      <Box
+        component="img"
         src={`${publicPath}/assets/apple-macbookpro16-front.png`}
-        style={{ ...commonStyles, pointerEvents: "none" }}
+        sx={{ ...commonStyles, pointerEvents: "none" }}
         alt="macbook frame"
       />
     </Box>
