@@ -10,6 +10,7 @@ import {
   useTheme,
   useMediaQuery,
   Collapse,
+  ClickAwayListener,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
@@ -28,7 +29,7 @@ const projects = [
   {
     id: "2d-vehicle-configurator",
     title: "2D 360° Vehicle Configurator",
-    image: "/assets/09-2d-config-01.png",
+    image: "/assets/18-2d-config.png",
   },
   {
     id: "online-gateway-website",
@@ -58,6 +59,12 @@ export default function Navbar() {
     setActiveDropdown(null);
   };
 
+  const handleClickAway = () => {
+    if (activeDropdown && !mobileOpen) {
+      setActiveDropdown(null);
+    }
+  };
+
   const toggleDropdown = (type: DropdownType) => {
     setActiveDropdown(activeDropdown === type ? null : type);
   };
@@ -69,7 +76,6 @@ export default function Navbar() {
         bgcolor: isMobile ? "transparent" : "rgba(255, 255, 255, 0.98)",
         borderTop: isMobile ? "none" : `1px solid ${theme.palette.divider}`,
         backdropFilter: isMobile ? "none" : "blur(10px)",
-        pb: 2,
       }}
     >
       {children}
@@ -94,8 +100,9 @@ export default function Navbar() {
         flexDirection: { xs: "column", md: "row" },
         justifyContent: "center",
         gap: { xs: 2, md: 4 },
-        py: { xs: 4, md: 6 },
-        px: 4,
+        pt: { xs: 4, md: 6 },
+        pb: { xs: 4, md: 2 },
+        px: 0,
       }}
     >
       {[
@@ -146,98 +153,107 @@ export default function Navbar() {
 
   return (
     <>
-      <AppBar
-        position="fixed"
-        elevation={0}
-        sx={{
-          backgroundColor:
-            scrolled || activeDropdown
-              ? "rgba(255, 255, 255, 0.8)"
-              : "transparent",
-          backdropFilter: scrolled || activeDropdown ? "blur(10px)" : "none",
-          color: "primary.main",
-          transition: "all 0.4s ease",
-          boxShadow: scrolled ? "0px 2px 20px rgba(0,0,0,0.05)" : "none",
-        }}
-      >
-        <Toolbar sx={{ justifyContent: "space-between", px: { xs: 1, md: 4 } }}>
-          <Typography
-            variant="h6"
-            sx={{ fontWeight: 900, textTransform: "uppercase" }}
+      <ClickAwayListener onClickAway={handleClickAway}>
+        <AppBar
+          position="fixed"
+          elevation={0}
+          sx={{
+            backgroundColor:
+              scrolled || activeDropdown
+                ? "rgba(255, 255, 255, 0.8)"
+                : "transparent",
+            backdropFilter: scrolled || activeDropdown ? "blur(10px)" : "none",
+            color: "primary.main",
+            transition: "all 0.4s ease",
+            boxShadow: scrolled ? "0px 2px 20px rgba(0,0,0,0.05)" : "none",
+          }}
+        >
+          <Toolbar
+            sx={{ justifyContent: "space-between", px: { xs: 1, md: 4 } }}
           >
-            <Link
-              to="/"
-              style={defaultStyle}
-              onClick={() => setActiveDropdown(null)}
+            <Typography
+              variant="h6"
+              sx={{ fontWeight: 900, textTransform: "uppercase" }}
             >
-              Reham Alsabbagh
-            </Link>
-          </Typography>
+              <Link
+                to="/"
+                style={defaultStyle}
+                onClick={() => setActiveDropdown(null)}
+              >
+                Reham Alsabbagh
+              </Link>
+            </Typography>
+
+            {!isMobile && (
+              <Box display="flex" gap={4} alignItems="center">
+                <Link style={defaultStyle} to="/resume">
+                  Resume
+                </Link>
+                <Box
+                  component="span"
+                  onClick={() => toggleDropdown("projects")}
+                  sx={{
+                    ...defaultStyle,
+                    cursor: "pointer",
+                    color:
+                      activeDropdown === "projects"
+                        ? "secondary.main"
+                        : "inherit",
+                    fontWeight:
+                      activeDropdown === "projects" ? "700" : "inherit",
+                  }}
+                >
+                  Projects
+                </Box>
+                <Box
+                  component="span"
+                  onClick={() => toggleDropdown("contact")}
+                  sx={{
+                    ...defaultStyle,
+                    cursor: "pointer",
+                    color:
+                      activeDropdown === "contact"
+                        ? "secondary.main"
+                        : "inherit",
+                    fontWeight:
+                      activeDropdown === "contact" ? "700" : "inherit",
+                  }}
+                >
+                  Contact me
+                </Box>
+              </Box>
+            )}
+
+            {isMobile && (
+              <IconButton color="inherit" onClick={handleDrawerToggle}>
+                <MenuIcon />
+              </IconButton>
+            )}
+          </Toolbar>
 
           {!isMobile && (
-            <Box display="flex" gap={4} alignItems="center">
-              <Link style={defaultStyle} to="/resume">
-                Resume
-              </Link>
-              <Box
-                component="span"
-                onClick={() => toggleDropdown("projects")}
-                sx={{
-                  ...defaultStyle,
-                  cursor: "pointer",
-                  color:
-                    activeDropdown === "projects"
-                      ? "secondary.main"
-                      : "inherit",
-                  fontWeight: activeDropdown === "projects" ? "700" : "inherit",
-                }}
-              >
-                Projects
-              </Box>
-              <Box
-                component="span"
-                onClick={() => toggleDropdown("contact")}
-                sx={{
-                  ...defaultStyle,
-                  cursor: "pointer",
-                  color:
-                    activeDropdown === "contact" ? "secondary.main" : "inherit",
-                  fontWeight: activeDropdown === "contact" ? "700" : "inherit",
-                }}
-              >
-                Contact me
-              </Box>
-            </Box>
+            <>
+              <Collapse in={activeDropdown === "contact"} unmountOnExit>
+                <DropdownWrapper>
+                  <ContactContent />
+                </DropdownWrapper>
+              </Collapse>
+              <Collapse in={activeDropdown === "projects"} unmountOnExit>
+                <DropdownWrapper>
+                  <ProjectsContent
+                    justifyContent="center"
+                    excludeProjectById="random=5345435" // NONE
+                    onClick={() => {
+                      setActiveDropdown(null);
+                      setMobileOpen(false);
+                    }}
+                  />
+                </DropdownWrapper>
+              </Collapse>
+            </>
           )}
-
-          {isMobile && (
-            <IconButton color="inherit" onClick={handleDrawerToggle}>
-              <MenuIcon />
-            </IconButton>
-          )}
-        </Toolbar>
-
-        {!isMobile && (
-          <>
-            <Collapse in={activeDropdown === "contact"} unmountOnExit>
-              <DropdownWrapper>
-                <ContactContent />
-              </DropdownWrapper>
-            </Collapse>
-            <Collapse in={activeDropdown === "projects"} unmountOnExit>
-              <DropdownWrapper>
-                <ProjectsContent
-                  onClick={() => {
-                    setActiveDropdown(null);
-                    setMobileOpen(false);
-                  }}
-                />
-              </DropdownWrapper>
-            </Collapse>
-          </>
-        )}
-      </AppBar>
-
+        </AppBar>
+      </ClickAwayListener>
       <Drawer
         anchor="right"
         open={mobileOpen}
@@ -288,6 +304,8 @@ export default function Navbar() {
             </Typography>
             <Collapse in={activeDropdown === "projects"} sx={{ width: "100%" }}>
               <ProjectsContent
+                justifyContent="center"
+                excludeProjectById="random-040634834" // NONE
                 onClick={() => {
                   setActiveDropdown(null);
                   setMobileOpen(false);
@@ -325,64 +343,78 @@ export default function Navbar() {
 
 interface ProjectsContentProps {
   onClick?: MouseEventHandler<HTMLAnchorElement>;
+  excludeProjectById: string;
+  justifyContent: string;
 }
 
-export const ProjectsContent = ({ onClick }: ProjectsContentProps) => {
+export const ProjectsContent = ({
+  onClick,
+  excludeProjectById = "random-53453454",
+  justifyContent,
+}: ProjectsContentProps) => {
   var theme = useTheme();
   return (
     <Box
       sx={{
         display: "flex",
         flexDirection: { xs: "column", md: "row" },
-        justifyContent: "center",
+        justifyContent: justifyContent ?? "center",
         gap: 3,
-        py: { xs: 4, md: 6 },
-        px: 4,
+        pt: { xs: 4, md: 6 },
+        pb: { xs: 4, md: 2 },
+        px: 0,
       }}
     >
-      {projects.map((proj) => (
-        <Link
-          key={proj.id}
-          to={`/projects/${proj.id}`}
-          onClick={onClick}
-          style={{ textDecoration: "none" }}
-        >
-          <Box
-            sx={{
-              textAlign: "center",
-              border: `1px solid ${theme.palette.secondary.main}22`,
-              borderRadius: "30px",
-              width: { xs: "100%", md: "25vw" },
-              p: 3,
-              transition: "0.3s",
-              "&:hover": { bgcolor: `${theme.palette.secondary.main}08` },
-            }}
-          >
-            <Box
-              component="img"
-              src={process.env.PUBLIC_URL + proj.image}
-              sx={{
-                width: "100%",
-                borderRadius: "15px",
-                mb: 2,
-                aspectRatio: "16/9",
-                objectFit: "cover",
-              }}
-            />
-            <Typography
-              variant="body2"
-              sx={{
-                fontWeight: 700,
-                textTransform: "uppercase",
-                color: "primary.main",
-                letterSpacing: 1,
-              }}
+      {projects
+        .filter((p) => p.id !== excludeProjectById)
+        .map((proj) => {
+          return (
+            <Link
+              key={proj.id}
+              to={`/projects/${proj.id}`}
+              onClick={onClick}
+              style={{ textDecoration: "none" }}
             >
-              {proj.title}
-            </Typography>
-          </Box>
-        </Link>
-      ))}
+              <Box
+                sx={{
+                  textAlign: "center",
+                  // border: `1px solid ${theme.palette.secondary.main}22`,
+                  borderRadius: "30px",
+                  width: { xs: "100%", md: "25vw" },
+                  p: 3,
+                  transition: "0.3s",
+                  bgcolor: "#ffffff20",
+                  "&:hover": {
+                    bgcolor: "#ffffff50",
+                    boxShadow: "0 0 20px #0000000a",
+                  },
+                }}
+              >
+                <Box
+                  component="img"
+                  src={process.env.PUBLIC_URL + proj.image}
+                  sx={{
+                    width: "95%",
+                    borderRadius: "15px",
+                    mb: 2,
+                    aspectRatio: "auto",
+                  }}
+                />
+                <Typography
+                  variant="body2"
+                  sx={{
+                    fontWeight: 700,
+                    textTransform: "uppercase",
+                    color: "primary.main",
+                    letterSpacing: 1,
+                  }}
+                >
+                  {proj.title}
+                </Typography>
+              </Box>
+            </Link>
+          );
+        })}
     </Box>
   );
 };

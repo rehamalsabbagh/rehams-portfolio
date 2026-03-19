@@ -6,12 +6,12 @@
   }
   50% {
     background-position:
-      100% 100%,
+      100% 50%,
       center;
   }
   100% {
     background-position:
-      100% 0%,
+      100% 100%,
       center;
   }
 }
@@ -21,10 +21,9 @@ body {
   /* Your existing fonts... */
 
   background-image:
-    url(/public/assets/r-a-background.png),
+    url(/public/assets/r-a-background-.png),
     radial-gradient(circle, #a5a5a5, #ebebeb);
-
-  background-size: 100%;
+  background-size: 800px;
 
   /* 1. Make the background image larger than the screen so it can move */
   /* background-size:
@@ -33,8 +32,8 @@ body {
   background-repeat: no-repeat; */
 
   /* 2. Apply the animation */
-  /* animation: slowPan 40s ease-in-out normal;
-  animation-iteration-count: infinite; */
+  animation: slowPan 100s ease-in-out normal;
+  animation-iteration-count: 1;
 
   /* Ensure the body fills the screen for the animation to be visible */
   min-height: 100vh;

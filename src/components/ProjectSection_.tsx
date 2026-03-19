@@ -1,11 +1,7 @@
 import { Box, Typography, useTheme } from "@mui/material";
-import { Link } from "react-router-dom"; // Or your routing library
+import { Link } from "react-router-dom";
 import { Reveal } from "../pages/Home";
 import { ScrollNext } from "./ScrollNext";
-
-/**
- * MacBook Preview Component (Handles the hover effect)
- */
 
 interface ProjectSectionProps {
   id: string;
@@ -15,8 +11,9 @@ interface ProjectSectionProps {
   linkTo: string;
   baseImg: string;
   hoverImg: string;
+  mobileImg?: string; // New Optional Prop
   nextTargetId: string;
-  imageFirst?: boolean; // Controls row order
+  imageFirst?: boolean;
   sectionBaseStyles: any;
 }
 
@@ -28,12 +25,11 @@ export const ProjectSection = ({
   linkTo,
   baseImg,
   hoverImg,
+  mobileImg,
   nextTargetId,
   imageFirst = false,
   sectionBaseStyles,
 }: ProjectSectionProps) => {
-  const theme = useTheme();
-
   return (
     <Box
       id={id}
@@ -69,7 +65,7 @@ export const ProjectSection = ({
               letterSpacing: -0.5,
               fontSize: { xs: "1.8rem", lg: "2.2rem" },
               lineHeight: 1.1,
-              marginBottom: "1.5vh",
+              mb: "1.5vh",
             }}
           >
             {title}
@@ -93,11 +89,7 @@ export const ProjectSection = ({
           <Typography
             variant="body1"
             color="primary"
-            sx={{
-              lineHeight: 1.8,
-              opacity: 0.85,
-              fontSize: "1rem",
-            }}
+            sx={{ lineHeight: 1.8, opacity: 0.85, fontSize: "1rem" }}
           >
             {description}
           </Typography>
@@ -116,10 +108,7 @@ export const ProjectSection = ({
                 gap: 1,
                 borderBottom: "1px solid transparent",
                 transition: "all 0.3s ease",
-                "&:hover": {
-                  gap: 1.5,
-                  borderBottomColor: "secondary.main",
-                },
+                "&:hover": { gap: 1.5, borderBottomColor: "secondary.main" },
               }}
             >
               Read Case Study {">"}
@@ -128,7 +117,7 @@ export const ProjectSection = ({
         </Reveal>
       </Box>
 
-      {/* IMAGE / PREVIEW COLUMN */}
+      {/* DEVICE PREVIEW COLUMN */}
       <Box
         sx={{
           width: { xs: "100%", lg: "45vw" },
@@ -138,11 +127,14 @@ export const ProjectSection = ({
         }}
       >
         <Reveal direction={imageFirst ? "left" : "right"} delay={0.2}>
-          <MacbookPreview baseImg={baseImg} hoverImg={hoverImg} />
+          <DevicePreview
+            baseImg={baseImg}
+            hoverImg={hoverImg}
+            mobileImg={mobileImg}
+          />
         </Reveal>
       </Box>
 
-      {/* NAVIGATION */}
       <Box display="flex" position="absolute" bottom="3vh">
         <ScrollNext targetId={nextTargetId} label="Next Project" delay={1.3} />
       </Box>
@@ -150,58 +142,126 @@ export const ProjectSection = ({
   );
 };
 
-const MacbookPreview = ({
+/**
+ * DevicePreview handles both Macbook and (optional) Phone frames
+ */
+const DevicePreview = ({
   baseImg,
   hoverImg,
+  mobileImg,
 }: {
   baseImg: string;
   hoverImg: string;
+  mobileImg?: string;
 }) => {
-  const publicPath = process.env.PUBLIC_URL;
-  const commonStyles = {
+  const publicPath = process.env.PUBLIC_URL || "";
+
+  // Shared sizes for MacBook elements
+  const macSizes = {
     height: { xs: "190px", sm: "350px", lg: "50vh" },
-    minWidth: "280px",
-    position: "absolute" as const,
+    width: "auto",
+    display: "block",
   };
 
   return (
     <Box
       sx={{
         position: "relative",
+        // The container height should match the MacBook height to stay centered with text
         height: { xs: "190px", sm: "350px", lg: "50vh" },
         width: "100%",
         display: "flex",
         justifyContent: "center",
+        alignItems: "center", // This keeps it vertically centered with the text column
       }}
     >
-      {/* Base Image */}
-      <Box
-        component="img"
-        src={`${publicPath}${baseImg}`}
-        sx={commonStyles}
-        alt="base"
-      />
+      {/* 1. MACBOOK GROUP (The Anchor) */}
+      <Box sx={{ position: "relative", lineHeight: 0 }}>
+        {/* Base Screenshot */}
+        <Box
+          component="img"
+          src={`${publicPath}${baseImg}`}
+          sx={{ ...macSizes }}
+          alt="base"
+        />
 
-      {/* Hover Image */}
-      <Box
-        component="img"
-        src={`${publicPath}${hoverImg}`}
-        alt="hover"
-        sx={{
-          ...commonStyles,
-          opacity: 0,
-          transition: "opacity 0.3s ease",
-          "&:hover": { opacity: 1 },
-        }}
-      />
+        {/* Hover Screenshot */}
+        <Box
+          component="img"
+          src={`${publicPath}${hoverImg}`}
+          alt="hover"
+          sx={{
+            ...macSizes,
+            position: "absolute",
+            top: 0,
+            left: 0,
+            opacity: 0,
+            transition: "opacity 0.3s ease",
+            "&:hover": { opacity: 1 },
+          }}
+        />
 
-      {/* Frame (Always on Top) */}
-      <Box
-        component="img"
-        src={`${publicPath}/assets/apple-macbookpro16-front.png`}
-        sx={{ ...commonStyles, pointerEvents: "none" }}
-        alt="macbook frame"
-      />
+        {/* MacBook Frame (Always on Top) */}
+        <Box
+          component="img"
+          src={`${publicPath}/assets/apple-macbookpro16-front.png`}
+          sx={{
+            ...macSizes,
+            position: "absolute",
+            top: 0,
+            left: 0,
+            pointerEvents: "none",
+          }}
+          alt="macbook frame"
+        />
+
+        {/* 2. PHONE GROUP (Overlaid on the Anchor) */}
+        {mobileImg && (
+          <Box
+            sx={{
+              position: "absolute",
+              height: { xs: "110px", sm: "200px", lg: "28vh" },
+              // bottom: { xs: "-15px", lg: "-25px" }, // Positioned relative to MacBook bottom
+              // left: { xs: "-5%", lg: "-10%" }, // Positioned relative to MacBook left
+              bottom: 0,
+              left: 0,
+              zIndex: 10,
+              filter: "drop-shadow(0px 20px 40px rgba(0,0,0,0.4))",
+              lineHeight: 0,
+            }}
+          >
+            {/* Phone Screenshot */}
+            <Box
+              component="img"
+              src={`${publicPath}${mobileImg}`}
+              sx={{
+                height: "100%",
+                width: "auto",
+                position: "absolute",
+                // top: "3%",
+                // left: "50%",
+                // transform: "translateX(-50%)",
+                borderRadius: { xs: "6px", lg: "12px" },
+                zIndex: 1,
+              }}
+              alt="mobile screenshot"
+            />
+            {/* Phone Frame */}
+            <Box
+              component="img"
+              src={`${publicPath}/assets/Iphone-Frame-PNG-File.png`}
+              sx={{
+                height: "100%",
+                width: "auto",
+                position: "relative",
+                zIndex: 2,
+                pointerEvents: "none",
+              }}
+              alt="phone frame"
+            />
+          </Box>
+        )}
+      </Box>
     </Box>
   );
 };

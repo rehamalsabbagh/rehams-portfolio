@@ -75,7 +75,6 @@ export const NavChip = ({ label }: { label: string }) => (
     sx={{
       transition: "0.3s opacity",
       opacity: 0.4,
-      cursor: "pointer",
       "&:hover": { opacity: 1 },
     }}
   />
@@ -209,8 +208,8 @@ const Home = () => {
         subtitle="Enterprise Architecture & 3D Visualization"
         description="An enterprise React and Three.js application for real-time aircraft customization that leverages a centralized CSV structure to dynamically manage seating, pricing, and 3D visualizations within an AWS-integrated, data-driven workflow."
         linkTo="/projects/3d-plane-seat-configurator"
-        baseImg="/assets/15-3d-config-.png"
-        hoverImg="/assets/16-3d-config-.png"
+        baseImg="/assets/22-3d-config.png"
+        hoverImg="/assets/23-3d-config.png"
         nextTargetId="project2"
         sectionBaseStyles={sectionBaseStyles}
       ></ProjectSection>
@@ -219,14 +218,29 @@ const Home = () => {
       <ProjectSection
         id="project2"
         title="2D 360° Vehicle Configurator"
-        subtitle="Enterprise Architecture & 3D Visualization"
-        description="An enterprise React and Three.js application for real-time aircraft customization that leverages a centralized CSV structure to dynamically manage seating, pricing, and 3D visualizations within an AWS-integrated, data-driven workflow."
+        subtitle="Layered 360° Rendering & Data-Driven Configuration"
+        description="A high-performance vehicle configurator utilizing frame-based rendering and layered image stacks to enable real-time customization. Built on a modular, data-driven architecture, and supports persistent state management and automated PDF summaries."
         linkTo="/projects/2d-vehicle-configurator"
         baseImg="/assets/17-2d-config-.png"
         hoverImg="/assets/18-2d-config-.png"
-        nextTargetId=""
+        nextTargetId="project3"
         sectionBaseStyles={sectionBaseStyles}
         imageFirst={true}
+      ></ProjectSection>
+
+      {/* SECTION 5: PROJECT 3 (Text from bottom, Image from right) */}
+      <ProjectSection
+        id="project3"
+        title="Payment Gateway Website & CMS"
+        subtitle="Multilingual Regional Platform & Internal CMS"
+        description="A multilingual enterprise platform and custom CMS leveraging an atomic UI design system and dynamic database architecture to deliver region-specific payment services and localized content governance across nine international markets."
+        linkTo="/projects/online-gateway-website"
+        baseImg="/assets/19-tap-payments.png"
+        hoverImg="/assets/20-tap-payments.png"
+        mobileImg="/assets/21-tap-payments.png"
+        nextTargetId=""
+        sectionBaseStyles={sectionBaseStyles}
+        // imageFirst={true}
       ></ProjectSection>
     </Box>
   );

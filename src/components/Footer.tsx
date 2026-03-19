@@ -20,7 +20,7 @@ export default function Footer() {
       component="footer"
       sx={{ bgcolor: "background.default", pt: 10, pb: 5 }}
     >
-      <Container maxWidth="lg">
+      <Container style={{ maxWidth: "75vw" }}>
         {/* Horizontal Divider with specific style */}
         <Box
           sx={{

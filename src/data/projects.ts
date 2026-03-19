@@ -19,6 +19,7 @@ export interface Project {
   image: string;
   techStack: string[];
   sections: ProjectSection[];
+  visitWebsite: string;
 }
 
 export const projects: Project[] = [
@@ -60,7 +61,7 @@ export const projects: Project[] = [
               "A modular, data-driven 3D configurator was designed and implemented using React.js and Three.js, with a strong emphasis on scalability and long-term flexibility. The seat model is composed of multiple configurable GLB components that are dynamically loaded and stacked within a single Three.js scene to form the complete seat structure. Each configuration option dynamically swaps specific GLB parts, updates material properties such as color, texture, and finish, or adjusts component visibility in real time. To enhance usability and create a guided experience, smooth camera transitions focus on the relevant seat section whenever a user configures a specific part, resulting in an intuitive and immersive 3D interaction flow.",
             ],
             images: [
-              // "/assets/07-3d-config-03.png",
+              "/assets/07-3d-config-03.png",
               // "/assets/08-3d-config-04.png",
             ],
           },
@@ -82,7 +83,7 @@ export const projects: Project[] = [
               "If a user refreshes the page, their saved selections can be retrieved via an API call and restored automatically.",
               "Finalized configurations are stored and displayed in both the configurator summary page and the admin management panel.",
             ],
-            images: ["/assets/07-3d-config-03.png"],
+            images: [],
           },
           {
             title: "Admin & Pricing System",
@@ -110,6 +111,7 @@ export const projects: Project[] = [
         ],
       },
     ],
+    visitWebsite: "",
   },
   {
     id: "2d-vehicle-configurator",
@@ -125,7 +127,7 @@ export const projects: Project[] = [
     ],
     introduction:
       "The 2D 360° Vehicle Configurator is a high-performance web application designed to provide an interactive vehicle customization experience using frame-based rendering. Instead of relying on real-time 3D models, the system uses a sequence of pre-rendered image frames to simulate a smooth 360-degree rotation of the vehicle. Each frame is composed of layered image stacks representing configurable components, allowing individual parts (such as paint, trims, or materials) to be updated instantly without reloading entire frames. Built on a fully modular and data-driven architecture, the platform dynamically generates both configuration logic and UI components from a centralized data source. The solution enables fast visual updates, persistent configuration storage, downloadable screenshots, and automated PDF summaries, delivering a seamless and scalable customization workflow.",
-    image: "/assets/09-2d-config-01.png",
+    image: "/assets/18-2d-config.png",
     cover: "/assets/2d-config-cover.png",
 
     sections: [
@@ -152,7 +154,7 @@ export const projects: Project[] = [
             content: [
               "A frame-based rendering engine was designed and implemented in React.js to simulate a 360-degree vehicle rotation using a sequence of pre-rendered images. Users can drag left or right to navigate through the frames, creating a smooth rotational experience without requiring real-time 3D processing. Each rotational frame is composed of stacked image layers representing different configurable parts of the vehicle. This layered stacking approach allows individual components, such as paint or materials, to be swapped independently without reloading the entire frame. The architecture significantly improves performance and reduces bandwidth consumption compared to full image replacement strategies.",
             ],
-            images: ["/assets/10-2d-config-02.png"],
+            images: ["/assets/17-2d-config.png"],
           },
           {
             title: "Modular Configuration Engine",
@@ -191,6 +193,7 @@ export const projects: Project[] = [
         ],
       },
     ],
+    visitWebsite: "",
   },
   {
     id: "online-gateway-website",
@@ -271,5 +274,6 @@ export const projects: Project[] = [
         ],
       },
     ],
+    visitWebsite: "https://tap.company",
   },
 ];
