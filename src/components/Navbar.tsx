@@ -114,7 +114,7 @@ export default function Navbar() {
         {
           label: "Social",
           value: "LinkedIn",
-          href: "https://linkedin.com/in/reham",
+          href: "https://www.linkedin.com/in/reham-alsabbagh-a53426122/",
         },
       ].map((item) => (
         <Box
@@ -166,10 +166,11 @@ export default function Navbar() {
             color: "primary.main",
             transition: "all 0.4s ease",
             boxShadow: scrolled ? "0px 2px 20px rgba(0,0,0,0.05)" : "none",
+            zIndex: "99999",
           }}
         >
           <Toolbar
-            sx={{ justifyContent: "space-between", px: { xs: 1, md: 4 } }}
+            sx={{ justifyContent: "space-between", px: { xs: 1, md: "2vw" } }}
           >
             <Typography
               variant="h6"
@@ -186,21 +187,42 @@ export default function Navbar() {
 
             {!isMobile && (
               <Box display="flex" gap={4} alignItems="center">
-                <Link style={defaultStyle} to="/resume">
+                <Box
+                  component={"span"}
+                  sx={{
+                    ...defaultStyle,
+                    textTransform: "uppercase",
+                    fontSize: "0.8rem",
+                    cursor: "pointer",
+                    opacity: "0.7",
+                    transition: "0.3s opacity",
+                    ":hover": {
+                      opacity: "1",
+                    },
+                    fontWeight: 700,
+                  }}
+                  // to="/resume"
+                >
                   Resume
-                </Link>
+                </Box>
                 <Box
                   component="span"
                   onClick={() => toggleDropdown("projects")}
                   sx={{
                     ...defaultStyle,
+                    textTransform: "uppercase",
+                    fontSize: "0.8rem",
                     cursor: "pointer",
+                    opacity: "0.7",
+                    transition: "0.3s opacity",
+                    ":hover": {
+                      opacity: "1",
+                    },
                     color:
                       activeDropdown === "projects"
                         ? "secondary.main"
                         : "inherit",
-                    fontWeight:
-                      activeDropdown === "projects" ? "700" : "inherit",
+                    fontWeight: 700,
                   }}
                 >
                   Projects
@@ -210,13 +232,19 @@ export default function Navbar() {
                   onClick={() => toggleDropdown("contact")}
                   sx={{
                     ...defaultStyle,
+                    textTransform: "uppercase",
+                    fontSize: "0.8rem",
                     cursor: "pointer",
+                    opacity: "0.7",
+                    transition: "0.3s opacity",
+                    ":hover": {
+                      opacity: "1",
+                    },
                     color:
                       activeDropdown === "contact"
                         ? "secondary.main"
                         : "inherit",
-                    fontWeight:
-                      activeDropdown === "contact" ? "700" : "inherit",
+                    fontWeight: 700,
                   }}
                 >
                   Contact me

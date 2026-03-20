@@ -1,5 +1,17 @@
 import { createTheme } from "@mui/material/styles";
 
+// 1. Module augmentation to allow TypeScript to recognize the new breakpoint
+declare module "@mui/material/styles" {
+  interface BreakpointOverrides {
+    xs: true;
+    sm: true;
+    md: true;
+    tabletLg: true; // New breakpoint
+    lg: true;
+    xl: true;
+  }
+}
+
 declare module "@mui/material/styles" {
   interface TypographyVariants {
     poster: React.CSSProperties;
@@ -22,6 +34,16 @@ declare module "@mui/material/Typography" {
 }
 
 export const theme = createTheme({
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 600,
+      md: 900,
+      tabletLg: 1050, // Custom point between 900 and 1200
+      lg: 1200,
+      xl: 1536,
+    },
+  },
   typography: {
     fontFamily: "Instrument Sans, system-ui, sans-serif",
     poster: {

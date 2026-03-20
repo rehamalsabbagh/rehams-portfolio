@@ -1,19 +1,8 @@
 import { Box, Container, Typography, Grid, useTheme } from "@mui/material";
-import { Link } from "react-router-dom";
 
 export default function Footer() {
   const theme = useTheme();
   const currentYear = new Date().getFullYear();
-
-  const footerLinkStyle = {
-    textDecoration: "none",
-    color: "inherit",
-    fontWeight: 700,
-    transition: "0.3s",
-    "&:hover": {
-      color: theme.palette.secondary.main,
-    },
-  };
 
   return (
     <Box
@@ -34,20 +23,18 @@ export default function Footer() {
         <Grid
           container
           spacing={4}
-          alignItems={{ lg: "flex-end", md: "center" }}
-          justifyContent={{ xs: "center", md: "space-between" }}
-          textAlign={{ xs: "center", md: "start" }}
+          alignItems={{ xs: "center", lg: "flex-end" }}
+          justifyContent={{ xs: "center", lg: "space-between" }}
+          textAlign={{ xs: "center", lg: "start" }}
+          flexDirection={{ xs: "column", lg: "row" }}
         >
           <Grid
             container
             spacing={4}
-            alignItems={{ lg: "flex-end", md: "center" }}
+            alignItems={{ xs: "center", lg: "flex-end" }}
             justifyContent={{ xs: "center" }}
-            flexDirection={{ xs: "column", md: "row" }}
+            flexDirection={{ xs: "column", lg: "row" }}
           >
-            {/* Brand/Name Section */}
-            {/* <Grid item xs={12} md={6}> */}
-
             <Typography
               variant="h3"
               sx={{
@@ -67,14 +54,17 @@ export default function Footer() {
           <Box
             sx={{
               display: "flex",
-              flexDirection: { xs: "row", md: "row" },
+              flexDirection: { xs: "row", lg: "row" },
               gap: 2,
-              justifyContent: { md: "flex-end" },
+              justifyContent: { lg: "flex-end" },
             }}
           >
             {[
               { label: "Email", href: "mailto:reham.alsabbagh@gmail.com" },
-              { label: "LinkedIn", href: "https://linkedin.com/in/reham" },
+              {
+                label: "LinkedIn",
+                href: "https://www.linkedin.com/in/reham-alsabbagh-a53426122/",
+              },
             ].map((item) => (
               <Box
                 key={item.label}
@@ -86,19 +76,21 @@ export default function Footer() {
                   px: 4,
                   py: 2,
                   borderRadius: "50px",
-                  border: `1px solid ${theme.palette.secondary.main}33`,
+                  border: `1px solid ${theme.palette.secondary.main}`,
                   textDecoration: "none",
-                  color: "primary.main",
+                  color: "secondary.main",
                   textAlign: "center",
-                  fontWeight: 800,
+                  // fontWeight: 800,
                   textTransform: "uppercase",
+                  opacity: { xs: 0.7, lg: 0.5 },
                   fontSize: "0.8rem",
                   letterSpacing: 1.5,
                   transition: "all 0.3s ease",
                   "&:hover": {
-                    bgcolor: "primary.main",
-                    color: "background.default",
-                    borderColor: "primary.main",
+                    opacity: 1,
+                    // bgcolor: "primary.main",
+                    // color: "background.default",
+                    // borderColor: "primary.main",
                   },
                 }}
               >
@@ -108,22 +100,16 @@ export default function Footer() {
           </Box>
         </Grid>
 
-        {/* Contact "Bubble" Section */}
-        {/* <Grid item xs={12} md={6}> */}
-
-        {/* </Grid> */}
-        {/* </Grid> */}
-
         {/* Bottom Small Print */}
         <Box
           sx={{
             mt: 8,
             display: "flex",
             justifyContent: "space-between",
-            flexDirection: { xs: "column", md: "row" },
+            flexDirection: { xs: "column", lg: "row" },
             gap: 2,
             opacity: 0.4,
-            textAlign: { xs: "center", md: "start" },
+            textAlign: { xs: "center", lg: "start" },
           }}
         >
           <Typography variant="caption" sx={{ textTransform: "uppercase" }}>

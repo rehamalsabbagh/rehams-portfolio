@@ -118,8 +118,8 @@ export const AboutSection = ({
             src={`${process.env.PUBLIC_URL}/assets/reham-alsabbagh.png`}
             alt="Reham avatar"
             sx={{
-              // width: "100%",
-              maxWidth: { xs: "140px", lg: "280px" },
+              // width: { xs: "90%", lg: "280px" },
+              maxWidth: { xs: "120px", lg: "280px" },
               borderRadius: "500px",
               opacity: isAboutMeVisible ? 1 : 0,
               transform: isAboutMeVisible
@@ -146,6 +146,8 @@ export const AboutSection = ({
               textTransform: "uppercase",
               letterSpacing: { xs: 8, md: 5 },
               fontSize: { xs: "2.5rem", md: "3.5rem" },
+              mb: { xs: 2, md: 0 },
+
               lineHeight: 1,
             }}
           >
@@ -161,6 +163,7 @@ export const AboutSection = ({
               letterSpacing: 3,
               mt: 1,
               mb: 4,
+              display: { xs: "none", lg: "block" },
             }}
           >
             Senior Web Developer & UX Architect
@@ -219,8 +222,13 @@ export const AboutSection = ({
       </Box>
 
       {/* 4. SCROLL BUTTON */}
-      <Box display="flex" position="absolute" bottom="3vh">
-        <ScrollNext targetId="projects" label="Projects" delay={2.2} />
+      <Box display="flex" position="absolute" bottom="0">
+        <ScrollNext
+          targetId="projects"
+          label="Projects"
+          delay={2.2}
+          // outOfSight={!isAboutMeVisible}
+        />
       </Box>
     </Box>
   );

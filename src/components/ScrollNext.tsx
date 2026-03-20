@@ -3,9 +3,9 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { useState, useEffect, useRef } from "react";
 
 const bounce = keyframes`
-  0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
-  40% {transform: translateY(5px);}
-  60% {transform: translateY(3px);}
+  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(5px); }
+  60% { transform: translateY(3px); }
 `;
 
 export const ScrollNext = ({
@@ -21,11 +21,13 @@ export const ScrollNext = ({
   const ref = useRef<HTMLDivElement>(null);
   const theme = useTheme();
 
+  const svgDrawDuration = 1;
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setTimeout(() => setIsVisible(true), delay * 1000);
+          setTimeout(() => setIsVisible(true), delay * 100);
         }
       },
       { threshold: 0.1 },
@@ -38,72 +40,126 @@ export const ScrollNext = ({
     document.getElementById(targetId)?.scrollIntoView({ behavior: "smooth" });
   };
 
+  const lineStyles = {
+    content: '""',
+    position: "absolute",
+    top: "50%",
+    width: { xs: "50px", lg: "100px" },
+    height: "0.85px",
+    bgcolor: theme.palette.secondary.main,
+    transition: "transform 1s cubic-bezier(0.4, 0, 0.2, 1), opacity 1s ease",
+    transitionDelay: `${delay + svgDrawDuration}s`,
+    // Idle opacity of the wings
+    opacity: isVisible ? 0.5 : 0,
+  };
+
   return (
     <Box
-      ref={ref}
-      onClick={handleScroll}
       sx={{
-        display: "inline-flex", // Ensures box hugs the text size
-        flexDirection: "column",
+        width: "100%",
+        display: "flex",
+        justifyContent: "center",
         alignItems: "center",
-        cursor: "pointer",
         position: "relative",
-        padding: "10px 30px 5px 30px",
-        mt: 6,
-        opacity: isVisible ? 0.6 : 0,
-        transform: isVisible ? "translateY(0)" : "translateY(15px)",
-        transition: "opacity 0.8s ease, transform 0.8s ease",
-        ":hover": {
-          opacity: isVisible ? 1 : 0,
-          transform: "translateY(5px)",
-        },
+        mb: 2,
+        zIndex: "99",
       }}
     >
-      {/* Dynamic SVG Rounded Border */}
-      <svg
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100%",
-          pointerEvents: "none",
-          overflow: "visible", // Prevents stroke clipping
+      <Box
+        ref={ref}
+        onClick={handleScroll}
+        sx={{
+          display: "inline-flex",
+          flexDirection: "column",
+          alignItems: "center",
+          cursor: "pointer",
+          position: "relative",
+          padding: "10px 30px 5px 30px",
+          // 1. Idle opacity set to 0.5 when visible
+          opacity: isVisible ? 0.5 : 0,
+          transform: isVisible ? "translateY(0)" : "translateY(15px)",
+          transition: "opacity 0.6s ease, transform 0.6s ease",
+          // transitionDelay: `${delay}s`,
+
+          "&::before": {
+            ...lineStyles,
+            right: "calc(100% + 20px)",
+            transformOrigin: "right",
+            transform: isVisible ? "scaleX(1)" : "scaleX(0)",
+          },
+
+          "&::after": {
+            ...lineStyles,
+            left: "calc(100% + 20px)",
+            transformOrigin: "left",
+            transform: isVisible ? "scaleX(1)" : "scaleX(0)",
+          },
+
+          // 2. Hover logic for opacity and arrow translation
+          "&:hover": {
+            opacity: 1, // Brings the whole button to full opacity
+            "&::before, &::after": {
+              opacity: 1, // Also brightens the side lines
+            },
+            ".MuiSvgIcon-root": {
+              transform: "translateY(2px)", // Translates the arrow on hover
+            },
+          },
         }}
       >
-        <rect
-          x="0"
-          y="0"
-          rx="30" // Adjust for roundness
-          ry="30"
-          width="100%"
-          height="100%"
-          fill="none"
-          stroke={theme.palette.secondary.main} // Dynamically gets your theme color
-          strokeWidth="0.85"
-          pathLength="1" // Normalizes the path to 1
-          strokeDasharray="1"
-          strokeDashoffset={isVisible ? "0" : "1"} // 1 = fully hidden, 0 = fully drawn
+        <svg
           style={{
-            transition: "stroke-dashoffset 1.5s cubic-bezier(0.4, 0, 0.2, 1)",
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            pointerEvents: "none",
+            overflow: "visible",
+          }}
+        >
+          <rect
+            x="0"
+            y="0"
+            rx="30"
+            ry="30"
+            width="100%"
+            height="100%"
+            fill="none"
+            stroke={theme.palette.secondary.main}
+            strokeWidth="0.85"
+            pathLength="1"
+            strokeDasharray="1"
+            strokeDashoffset={isVisible ? "0" : "1"}
+            style={{
+              transition: `stroke-dashoffset ${svgDrawDuration}s cubic-bezier(0.4, 0, 0.2, 1)`,
+              transitionDelay: `${delay}s`,
+            }}
+          />
+        </svg>
+
+        <Typography
+          variant="navButton"
+          color="secondary"
+          sx={{
+            fontSize: "0.7rem",
+            letterSpacing: 2,
+          }}
+        >
+          {label.toUpperCase()}
+        </Typography>
+
+        <KeyboardArrowDownIcon
+          color="secondary"
+          sx={{
+            animation: `${bounce} 4s 2`,
+            fontSize: "1.1rem",
+            mt: 0.5,
+            // Smooth transition for the hover translation
+            transition: "transform 0.3s ease",
           }}
         />
-      </svg>
-
-      <Typography
-        variant="navButton"
-        color="secondary"
-        sx={{
-          mb: 0.5,
-          marginBottom: 0,
-        }}
-      >
-        {label.toUpperCase()}
-      </Typography>
-      <KeyboardArrowDownIcon
-        color="secondary"
-        sx={{ animation: `${bounce} 4s 1` }}
-      />
+      </Box>
     </Box>
   );
 };

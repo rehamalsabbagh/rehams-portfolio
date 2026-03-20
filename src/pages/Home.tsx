@@ -4,6 +4,7 @@ import { ScrollNext } from "../components/ScrollNext";
 import { sectionBaseStyles } from "../components/style";
 import { AboutSection } from "../components/AboutSection";
 import { ProjectSection } from "../components/ProjectSection_";
+import { ProjectTimeline } from "../components/ProjectTimeLine";
 
 /**
  * Reusable Animation Wrapper
@@ -83,7 +84,34 @@ export const NavChip = ({ label }: { label: string }) => (
 const Home = () => {
   const [isAboutMeVisible, setIsAboutMeVisible] = useState(false);
   const aboutRef = useRef<HTMLDivElement>(null);
+  const [activeProject, setActiveProject] = useState("projects");
   const theme = useTheme();
+
+  const projectsList = [
+    { id: "projects", title: "3D Plane Configurator" },
+    { id: "project2", title: "2D Vehicle Configurator" },
+    { id: "project3", title: "Payment Gateway & CMS" },
+  ];
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveProject(entry.target.id);
+          }
+        });
+      },
+      { threshold: 0.6 }, // Section must be 60% visible to be "active"
+    );
+
+    projectsList.forEach((p) => {
+      const el = document.getElementById(p.id);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     let timer: NodeJS.Timeout;
@@ -91,7 +119,7 @@ const Home = () => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          timer = setTimeout(() => setIsAboutMeVisible(true), 500);
+          timer = setTimeout(() => setIsAboutMeVisible(true), 100);
         } else {
           clearTimeout(timer);
           setIsAboutMeVisible(false);
@@ -190,7 +218,7 @@ const Home = () => {
         </Box>
 
         {/* SCROLL INDICATOR */}
-        <Box display="flex" position="absolute" bottom="3vh">
+        <Box display="flex" position="absolute" bottom="0">
           <ScrollNext targetId="about" label="Learn More" delay={1.7} />
         </Box>
       </Box>
@@ -201,47 +229,55 @@ const Home = () => {
         isAboutMeVisible={isAboutMeVisible}
       ></AboutSection>
 
-      {/* SECTION 3: PROJECT 1 (Text from bottom, Image from right) */}
-      <ProjectSection
-        id="projects"
-        title="3D Plane Seat Configurator"
-        subtitle="Enterprise Architecture & 3D Visualization"
-        description="An enterprise React and Three.js application for real-time aircraft customization that leverages a centralized CSV structure to dynamically manage seating, pricing, and 3D visualizations within an AWS-integrated, data-driven workflow."
-        linkTo="/projects/3d-plane-seat-configurator"
-        baseImg="/assets/22-3d-config.png"
-        hoverImg="/assets/23-3d-config.png"
-        nextTargetId="project2"
-        sectionBaseStyles={sectionBaseStyles}
-      ></ProjectSection>
+      <Box sx={{ position: "relative" }}>
+        <ProjectTimeline projects={projectsList} />
 
-      {/* SECTION 4: PROJECT 2 (Text from bottom, Image from left) */}
-      <ProjectSection
-        id="project2"
-        title="2D 360° Vehicle Configurator"
-        subtitle="Layered 360° Rendering & Data-Driven Configuration"
-        description="A high-performance vehicle configurator utilizing frame-based rendering and layered image stacks to enable real-time customization. Built on a modular, data-driven architecture, and supports persistent state management and automated PDF summaries."
-        linkTo="/projects/2d-vehicle-configurator"
-        baseImg="/assets/17-2d-config-.png"
-        hoverImg="/assets/18-2d-config-.png"
-        nextTargetId="project3"
-        sectionBaseStyles={sectionBaseStyles}
-        imageFirst={true}
-      ></ProjectSection>
+        {/* Shift your sections slightly right to accommodate the timeline */}
+        <Box>
+          {/* SECTION 3: PROJECT 1 (Text from bottom, Image from right) */}
+          <ProjectSection
+            id="projects"
+            title="3D Plane Seat Configurator"
+            subtitle="Enterprise Architecture & 3D Visualization"
+            description="An enterprise React and Three.js application for real-time aircraft customization that leverages a centralized CSV structure to dynamically manage seating, pricing, and 3D visualizations within an AWS-integrated, data-driven workflow."
+            linkTo="/projects/3d-plane-seat-configurator"
+            baseImg="/assets/22-3d-config.png"
+            hoverImg="/assets/23-3d-config.png"
+            nextTargetId="project2"
+            sectionBaseStyles={sectionBaseStyles}
+            imageFirst={true}
+          ></ProjectSection>
 
-      {/* SECTION 5: PROJECT 3 (Text from bottom, Image from right) */}
-      <ProjectSection
-        id="project3"
-        title="Payment Gateway Website & CMS"
-        subtitle="Multilingual Regional Platform & Internal CMS"
-        description="A multilingual enterprise platform and custom CMS leveraging an atomic UI design system and dynamic database architecture to deliver region-specific payment services and localized content governance across nine international markets."
-        linkTo="/projects/online-gateway-website"
-        baseImg="/assets/19-tap-payments.png"
-        hoverImg="/assets/20-tap-payments.png"
-        mobileImg="/assets/21-tap-payments.png"
-        nextTargetId=""
-        sectionBaseStyles={sectionBaseStyles}
-        // imageFirst={true}
-      ></ProjectSection>
+          {/* SECTION 4: PROJECT 2 (Text from bottom, Image from left) */}
+          <ProjectSection
+            id="project2"
+            title="2D 360° Vehicle Configurator"
+            subtitle="Layered 360° Rendering & Data-Driven Configuration"
+            description="A high-performance vehicle configurator utilizing frame-based rendering and layered image stacks to enable real-time customization. Built on a modular, data-driven architecture, and supports persistent state management and automated PDF summaries."
+            linkTo="/projects/2d-vehicle-configurator"
+            baseImg="/assets/17-2d-config-.png"
+            hoverImg="/assets/18-2d-config-.png"
+            nextTargetId="project3"
+            sectionBaseStyles={sectionBaseStyles}
+            imageFirst={false}
+          ></ProjectSection>
+
+          {/* SECTION 5: PROJECT 3 (Text from bottom, Image from right) */}
+          <ProjectSection
+            id="project3"
+            title="Payment Gateway Website & CMS"
+            subtitle="Multilingual Regional Platform & Internal CMS"
+            description="A multilingual enterprise platform and custom CMS leveraging an atomic UI design system and dynamic database architecture to deliver region-specific payment services and localized content governance across nine international markets."
+            linkTo="/projects/online-gateway-website"
+            baseImg="/assets/19-tap-payments.png"
+            hoverImg="/assets/20-tap-payments.png"
+            mobileImg="/assets/21-tap-payments.png"
+            nextTargetId=""
+            sectionBaseStyles={sectionBaseStyles}
+            imageFirst={true}
+          ></ProjectSection>
+        </Box>
+      </Box>
     </Box>
   );
 };

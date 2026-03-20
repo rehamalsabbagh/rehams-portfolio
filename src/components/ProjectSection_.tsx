@@ -2,6 +2,7 @@ import { Box, Typography, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
 import { Reveal } from "../pages/Home";
 import { ScrollNext } from "./ScrollNext";
+import { KeyboardArrowRight } from "@mui/icons-material";
 
 interface ProjectSectionProps {
   id: string;
@@ -43,13 +44,14 @@ export const ProjectSection = ({
         },
         alignItems: "center",
         justifyContent: "center",
-        gap: { xs: 1, lg: "5vw" },
+        gap: { xs: "1vw", lg: "3vw", xl: "1vw" },
+        mt: { xs: "-2vh", lg: "-7.5vh" },
       }}
     >
       {/* TEXT CONTENT COLUMN */}
       <Box
         sx={{
-          width: { xs: "100%", lg: "25vw" },
+          width: { xs: "100%", lg: "30vw" },
           zIndex: 3,
           p: { xs: 1, lg: 4 },
           textAlign: { xs: "center", lg: "left" },
@@ -81,6 +83,7 @@ export const ProjectSection = ({
               mt: 1.5,
               mb: 3,
               fontSize: "1rem",
+              display: { xs: "block", lg: "none", xl: "block" },
             }}
           >
             {subtitle}
@@ -95,24 +98,46 @@ export const ProjectSection = ({
           </Typography>
 
           <Link to={linkTo} style={{ textDecoration: "none" }}>
-            <Typography
+            <Box
               sx={{
-                mt: 4,
-                color: "secondary.main",
-                fontWeight: 600,
-                textTransform: "uppercase",
-                letterSpacing: 2,
-                fontSize: "1rem",
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 1,
-                borderBottom: "1px solid transparent",
-                transition: "all 0.3s ease",
-                "&:hover": { gap: 1.5, borderBottomColor: "secondary.main" },
+                "&:hover": {
+                  ".MuiSvgIcon-root": {
+                    transform: "translateX(2px)", // Translates the arrow on hover
+                  },
+                },
               }}
             >
-              Read Case Study {">"}
-            </Typography>
+              <Typography
+                sx={{
+                  mt: 4,
+                  color: "secondary.main",
+                  fontWeight: 600,
+                  textTransform: "uppercase",
+                  letterSpacing: 2,
+                  fontSize: "1rem",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 1,
+                  borderBottomColor: "secondary.main",
+                  borderBottom: "1px solid",
+                  transition: "all 0.3s ease",
+                  cursor: "pointer",
+                  "&:hover": {
+                    gap: 1.5,
+                  },
+                }}
+              >
+                Read More
+              </Typography>
+              <KeyboardArrowRight
+                sx={{
+                  fontSize: "1.5rem",
+                  verticalAlign: "text-top",
+                  color: "secondary.main",
+                  transition: "all 0.3s ease",
+                }}
+              ></KeyboardArrowRight>
+            </Box>
           </Link>
         </Reveal>
       </Box>
@@ -120,7 +145,8 @@ export const ProjectSection = ({
       {/* DEVICE PREVIEW COLUMN */}
       <Box
         sx={{
-          width: { xs: "100%", lg: "45vw" },
+          width: { xs: "100%", lg: "35vw" },
+          mb: { xs: "2vh", lg: "0" },
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -135,7 +161,7 @@ export const ProjectSection = ({
         </Reveal>
       </Box>
 
-      <Box display="flex" position="absolute" bottom="3vh">
+      <Box display="flex" position="absolute" bottom="0vh">
         <ScrollNext targetId={nextTargetId} label="Next Project" delay={1.3} />
       </Box>
     </Box>
@@ -158,7 +184,7 @@ const DevicePreview = ({
 
   // Shared sizes for MacBook elements
   const macSizes = {
-    height: { xs: "190px", sm: "350px", lg: "50vh" },
+    height: { xs: "190px", sm: "350px", lg: "47vh" },
     width: "auto",
     display: "block",
   };
@@ -168,7 +194,7 @@ const DevicePreview = ({
       sx={{
         position: "relative",
         // The container height should match the MacBook height to stay centered with text
-        height: { xs: "190px", sm: "350px", lg: "50vh" },
+        height: { xs: "190px", sm: "350px", lg: "47vh" },
         width: "100%",
         display: "flex",
         justifyContent: "center",
