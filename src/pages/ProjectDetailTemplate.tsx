@@ -103,8 +103,8 @@ export const ProjectDetailTemplate: React.FC<ProjectDetailProps> = ({
         scrollLabel="View Project Details"
         devicePreview={
           <DevicePreview
-            baseImg="/assets/22-3d-config.png"
-            hoverImg="/assets/23-3d-config.png"
+            baseImg={project.image}
+            hoverImg={project.hoverImage}
             height={{ xs: "190px", sm: "350px", lg: "40vh" }}
           />
         }
@@ -173,7 +173,7 @@ export const ProjectDetailTemplate: React.FC<ProjectDetailProps> = ({
           {/* </Box> */}
         </Box>
 
-        <Box id={"solution"}>
+        <Box id={"solution"} sx={{ mb: "5vh" }}>
           <Reveal direction="up">
             <Typography
               variant="h2"
@@ -189,7 +189,6 @@ export const ProjectDetailTemplate: React.FC<ProjectDetailProps> = ({
             </Typography>
           </Reveal>
           {content(project.solution.content)}
-
           <ProjectSlideshow images={project.solution.images}></ProjectSlideshow>
         </Box>
 

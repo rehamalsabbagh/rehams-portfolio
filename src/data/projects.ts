@@ -22,6 +22,7 @@ export interface Project {
   solution: ProjectSection;
   cover: string;
   image: string;
+  hoverImage: string;
   techStack: string[];
 
   sections: ProjectSection[];
@@ -51,18 +52,20 @@ export const projects: Project[] = [
       images: [],
     },
     // "An enterprise-grade platform for airlines to customize aircraft interiors via an |interactive 3D interface|. Built with React and |Three.js|, the system provides real-time visualization of modular components and materials. The architecture is |fully data-driven|, utilizing centralized CSV structures for dynamic UI generation and pricing logic. Featuring |animated camera transitions| and AWS Lambda integration, it streamlines the workflow from initial design to |automated PDF order summaries|.",
-    image: "/assets/06-3d-config-02.png",
+    image: "/assets/22-3d-config.png",
+    hoverImage: "/assets/23-3d-config.png",
+
     cover: "/assets/3d-config-cover.png",
     requirements: {
       title: "Client Requirements",
       subTitle: "Scope Overview",
       content: [
-        "A highly interactive 3D seat configurator enabling airlines to customize modular aircraft seat models through an intuitive and responsive digital experience.",
-        "A realistic seat architecture built from dynamically assembled GLB components, allowing independent modification of parts, materials, finishes, and colors with immediate visual feedback.",
-        "A guided configuration workflow enhanced by smooth animated camera transitions and real-time pricing updates reflecting user selections instantly.",
-        "An advanced configuration engine managing dependencies, cascades, prerequisites, and validation rules through a fully data-driven structure.",
-        "A dynamically generated user interface derived entirely from structured configuration data, eliminating hardcoded logic and improving long-term scalability.",
-        "Persistent configuration management supporting draft and submitted states, centralized administrative control, and automated PDF summary generation.",
+        "An interactive 3D configurator for airlines to customize modular aircraft seats through an intuitive, responsive experience.",
+        "A realistic GLB-based architecture allowing independent modification of parts, materials, and finishes with instant feedback.",
+        "A guided configuration workflow featuring smooth camera transitions and real-time pricing updates.",
+        "An advanced engine managing complex dependencies and validation rules through a fully data-driven structure.",
+        "A dynamic UI generated entirely from configuration data, eliminating hardcoded logic for maximum scalability.",
+        "Full lifecycle management supporting persistent drafts, administrative control, and automated PDF summaries.",
       ],
       images: [],
     },
@@ -73,8 +76,11 @@ export const projects: Project[] = [
         "A modular 3D configurator was built with React.js and Three.js | featuring dynamically loaded GLB components | that stack into a single scene for maximum scalability. The system swaps parts and material properties | in real-time | while synchronized camera transitions | focus on active sections | to provide an intuitive, immersive interaction flow.",
       ],
       images: [
+        "/assets/13-3d-config.png",
         "/assets/07-3d-config-03.png",
-        // "/assets/08-3d-config-04.png",
+        "/assets/09-3d-config-05.png",
+        "/assets/10-3d-config-06.png",
+        "/assets/11-3d-config-07.png",
       ],
     },
     sections: [
@@ -131,9 +137,9 @@ export const projects: Project[] = [
       },
       {
         title: "Impact",
-        subTitle: "Impact",
+        subTitle: "Operational Efficiency & UX",
         content: [
-          "Delivered a scalable and modular 3D configuration system adaptable to new seat models, reducing reliance on hardcoded UI logic through a fully data-driven architecture. The platform enhanced user experience with guided camera animations and real-time pricing feedback, while streamlining operational workflows through automated PDF generation and centralized pricing management.",
+          "Delivered a |scalable 3D configuration system| that eliminates hardcoded UI logic through a |fully data-driven architecture|. The platform elevated the user experience with |guided camera animations| and real-time feedback, while |streamlining operational workflows| via automated PDF generation and |centralized pricing management|.",
         ],
         images: [],
       },
@@ -154,30 +160,27 @@ export const projects: Project[] = [
     ],
     introduction: {
       title: "Introduction",
-      subTitle: "Introduction",
+      subTitle: "Modular 360° Visualization",
       content: [
         "A high-performance configurator utilizing |frame-based rendering| to simulate smooth 360° rotation without 3D overhead. The system uses |layered image stacks| to allow instant updates of paints and trims without reloading frames. Built on a |modular, data-driven architecture|, it dynamically generates logic and UI from a central source, supporting persistent storage and |automated PDF summaries| for a seamless, scalable customization workflow.",
       ],
       images: [],
     },
     // "A high-performance configurator utilizing |frame-based rendering| to simulate smooth 360° rotation without 3D overhead. The system uses |layered image stacks| to allow instant updates of paints and trims without reloading frames. Built on a |modular, data-driven architecture|, it dynamically generates logic and UI from a central source, supporting persistent storage and |automated PDF summaries| for a seamless, scalable customization workflow.",
-    image: "/assets/18-2d-config.png",
+    image: "/assets/17-2d-config-.png",
+    hoverImage: "/assets/18-2d-config-.png",
+
     cover: "/assets/2d-config-cover.png",
 
     requirements: {
       title: "Client Requirements",
       subTitle: "Scope Overview",
       content: [
-        "Provide a smooth 360-degree interactive view of a vehicle without using heavy 3D rendering.",
-        "Enable users to rotate the vehicle by dragging left and right across the screen.",
-        "Allow dynamic customization of vehicle components such as paint, materials, trims, and accessories.",
-        "Ensure fast performance without reloading entire high-resolution images for every change.",
-        "Support data-driven configuration rules and modular option management.",
-        "Automatically generate the UI based on configuration data.",
-        "Allow users to retrieve previously saved configurations.",
-        "Enable users to download screenshots of their configured vehicle.",
-        "Generate a structured PDF summary of the final configuration.",
-        "Ensure the system is scalable and adaptable to new vehicle models and variations.",
+        "A high-performance 360° engine enabling interactive drag-to-rotate navigation without the overhead of real-time 3D rendering.",
+        "A layered rendering architecture allowing instant customization of paints, materials, and trims without full image reloads.",
+        "A data-driven configuration engine that automatically generates the UI and manages complex modular dependencies.",
+        "Integrated state persistence and export tools for saving configurations, capturing screenshots, and generating structured PDF summaries.",
+        "A fully scalable framework designed for rapid deployment and adaptation across diverse vehicle models and variations.",
       ],
       images: [],
     },
@@ -194,15 +197,6 @@ export const projects: Project[] = [
         title: "Solution Details",
         subTitle: "The Solution",
         subsections: [
-          {
-            title: "Frame-Based 360° Rendering Architecture",
-            subTitle: "Frame-Based 360° Rendering Architecture",
-
-            content: [
-              "A frame-based rendering engine was designed and implemented in React.js to simulate a 360-degree vehicle rotation using a sequence of pre-rendered images. Users can drag left or right to navigate through the frames, creating a smooth rotational experience without requiring real-time 3D processing. Each rotational frame is composed of stacked image layers representing different configurable parts of the vehicle. This layered stacking approach allows individual components, such as paint or materials, to be swapped independently without reloading the entire frame. The architecture significantly improves performance and reduces bandwidth consumption compared to full image replacement strategies.",
-            ],
-            images: ["/assets/17-2d-config.png"],
-          },
           {
             title: "Modular Configuration Engine",
             subTitle: "Modular Configuration Engine",
@@ -242,10 +236,9 @@ export const projects: Project[] = [
       },
       {
         title: "Impact",
-        subTitle: "Impact",
-
+        subTitle: "Performance & Conversion",
         content: [
-          "A performant 360° vehicle configurator was delivered without requiring heavy 3D rendering, using an optimized image loading strategy through a layered stacking architecture. The system enables scalable, model-agnostic configuration through data-driven UI generation, while improving user engagement with smooth drag-based interaction and instant visual feedback. Sales processes are streamlined with downloadable screenshots and automated PDF summaries.",
+          "Delivered a |performant 360° vehicle configurator| without heavy 3D overhead, utilizing an |optimized layered stacking architecture|. The system enables |scalable, model-agnostic configuration| through data-driven UI generation, while boosting engagement with |smooth drag-based interaction|. Operational efficiency was achieved through |instant visual feedback| and automated |sales-ready PDF summaries|.",
         ],
         images: [],
       },
@@ -267,27 +260,27 @@ export const projects: Project[] = [
     ],
     introduction: {
       title: "Introduction",
-      subTitle: "Introduction",
+      subTitle: "Multi-market Service Architecture",
       content: [
         "A scalable, |multilingual platform| designed to deliver region-specific services across nine international markets. The architecture is entirely |data-driven|, serving tailored content from a centralized database. Developed using an |Atomic UI design system| for maximum consistency, the solution includes a |custom internal CMS| that empowers regional teams to manage localized governance and content, supporting rapid international growth.",
       ],
       images: [],
     },
     // "A scalable, |multilingual platform| designed to deliver region-specific services across nine international markets. The architecture is entirely |data-driven|, serving tailored content from a centralized database. Developed using an |Atomic UI design system| for maximum consistency, the solution includes a |custom internal CMS| that empowers regional teams to manage localized governance and content, supporting rapid international growth.",
-    image: "/assets/11-tap-website-01.png",
+    image: "/assets/19-tap-payments.png",
+    hoverImage: "/assets/20-tap-payments.png",
+
     cover: "/assets/tap-payments-cover.webp",
 
     requirements: {
       title: "Client Requirements",
       subTitle: "Scope Overview",
       content: [
-        "Develop and maintain a customer-facing corporate website to present the company’s services to enterprise clients.",
-        "Support multiple countries with region-specific service availability.",
-        "Enable multilingual support with localized content per region.",
-        "Ensure all content is dynamically managed rather than hardcoded.",
-        "Provide internal teams with a content management platform to control regional content.",
-        "Allow content customization for 9 different regions, each supporting multiple languages.",
-        "Maintain scalability to support future regional expansion and service updates.",
+        "A customer-facing corporate platform designed to present enterprise-level services across global markets.",
+        "A multi-regional architecture supporting localized service availability and multilingual content for nine international territories.",
+        "A dynamic data-driven system that replaces hardcoded logic with centralized content management via REST APIs.",
+        "An internal CMS framework empowering regional teams to manage localized governance and content independently.",
+        "A modular, scalable foundation built to support rapid regional expansion and continuous service updates.",
       ],
       images: [],
     },
@@ -301,6 +294,9 @@ export const projects: Project[] = [
       images: [
         "/assets/11-tap-website-01.png",
         "/assets/12-tap-website-02.png",
+        "/assets/13-tap-website-03.png",
+        "/assets/14-tap-website-04.png",
+        "/assets/15-tap-website-05.png",
       ],
     },
     sections: [
@@ -348,9 +344,9 @@ export const projects: Project[] = [
       },
       {
         title: "Impact",
-        subTitle: "Impact",
+        subTitle: "Global Governance & Scale",
         content: [
-          "A scalable multilingual corporate platform was delivered, supporting nine regions and multiple languages, with centralized content governance enabled through a custom-built CMS. Operational efficiency was improved by removing hardcoded regional logic, and the flexible, modular architecture aligned with the atomic UI design system supported international expansion. The platform ensures consistent brand messaging and service presentation across global markets.",
+          "Delivered a |scalable multilingual platform| supporting nine regions through a |centralized content governance| system. Operational efficiency was achieved by replacing hardcoded logic with a |custom-built CMS|, while a |modular atomic UI design system| ensured consistent brand messaging. This architecture provides a |high-performance foundation| for rapid international expansion across global markets.",
         ],
         images: [],
       },
