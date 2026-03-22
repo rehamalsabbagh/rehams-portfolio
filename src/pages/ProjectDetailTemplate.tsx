@@ -11,7 +11,59 @@ import {
 import { NavChip, Reveal } from "./Home";
 import { Project } from "../data/projects";
 import { ProjectsContent } from "../components/Navbar";
-import { Add, ArrowOutward, KeyboardArrowDown } from "@mui/icons-material";
+import {
+  Add,
+  ArrowOutward,
+  EmojiObjects,
+  KeyboardArrowDown,
+  LightbulbCircle,
+  StickyNote2,
+} from "@mui/icons-material";
+import { HeroSection } from "../components/HeroSection";
+import { DevicePreview } from "../components/ProjectSection_";
+import { FramedContainer } from "../components/FramedContainer";
+import { useSectionObserver } from "../hooks/SectionObserver";
+import { Highlight } from "../components/AboutSection";
+import { sectionBaseStyles, subTitleMargins } from "../components/style";
+import { EditorialRequirements } from "../components/ZigZagRequirements";
+import { ScrollNext } from "../components/ScrollNext";
+import { ProjectSlideshow } from "../components/ProjectSlideshow";
+
+const renderDescription = (text: string) => {
+  return text.split("|").map((part, index) => {
+    // Every odd index is a highlighted part
+    if (index % 2 !== 0) {
+      return <Highlight key={index}>{part}</Highlight>;
+    }
+    return part;
+  });
+};
+
+const content = (content: string[] | undefined) => {
+  return (
+    <Grid container spacing={4}>
+      {content!.map((text, tIdx) => (
+        <Reveal delay={tIdx * 0.1}>
+          <Box sx={{ display: "flex", gap: 3, mb: 2 }}>
+            {content?.length! > 1 && (
+              <Typography
+                sx={{
+                  color: "secondary.main",
+                  fontWeight: 800,
+                  mt: 0.5,
+                }}
+              >
+                {(tIdx + 1).toString().padStart(2, "0")}
+              </Typography>
+            )}
+            <Typography variant="body1">{renderDescription(text)}</Typography>
+          </Box>
+        </Reveal>
+        //   </Grid>
+      ))}
+    </Grid>
+  );
+};
 
 // --- Interface ---
 interface ProjectDetailProps {
@@ -22,11 +74,12 @@ export const ProjectDetailTemplate: React.FC<ProjectDetailProps> = ({
   projects,
 }) => {
   const { id } = useParams<{ id: string }>();
-  const theme = useTheme();
+  const { sectionRef, isVisible } = useSectionObserver(0.3);
 
   const project = projects.find((p) => p.id === id);
   const publicPath = process.env.PUBLIC_URL;
 
+  const theme = useTheme();
   if (!project) {
     return (
       <Box sx={{ py: 20, textAlign: "center" }}>
@@ -40,129 +93,116 @@ export const ProjectDetailTemplate: React.FC<ProjectDetailProps> = ({
   return (
     <Box sx={{ minHeight: "100vh", pb: 15 }}>
       {/* 1. HERO SECTION */}
-      <Box
-        sx={{
-          pt: { xs: 15, md: 22 },
-          pb: { xs: 7, md: 4 },
-          px: 4,
-          textAlign: "center",
-        }}
-      >
-        <Reveal direction="up">
-          <Typography
-            variant="h1"
-            sx={{
-              fontWeight: 900,
-              textTransform: "uppercase",
-              letterSpacing: -2,
-              fontSize: { xs: "2.5rem", md: "4rem" },
-              color: "primary.main",
-              lineHeight: { xs: 1.3, md: 0.8 },
-              mb: 2,
-            }}
-          >
-            {project.title}
-          </Typography>
-          <Typography
-            variant="h6"
-            sx={{
-              color: "secondary.main",
-              fontWeight: 400,
-              textTransform: "uppercase",
-              letterSpacing: 6,
-              mb: 6,
-            }}
-          >
-            {project.role}
-          </Typography>
-        </Reveal>
 
-        <Reveal delay={0.3}>
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              flexWrap: "wrap",
-              gap: 1.5,
-              mb: { xs: 0, lg: 5 },
-            }}
-          >
-            {project.techStack.map((tech) => (
-              <NavChip key={tech} label={tech} />
-            ))}
-          </Box>
-        </Reveal>
-      </Box>
+      <HeroSection
+        type="project"
+        title={project.title}
+        subtitle={project.role}
+        chips={project.techStack}
+        targetId={"introduction"}
+        scrollLabel="View Project Details"
+        devicePreview={
+          <DevicePreview
+            baseImg="/assets/22-3d-config.png"
+            hoverImg="/assets/23-3d-config.png"
+            height={{ xs: "190px", sm: "350px", lg: "40vh" }}
+          />
+        }
+      />
 
       <Container maxWidth="lg">
-        <Reveal direction="left" delay={0.4}>
-          <Box
-            component="img"
-            src={`${publicPath}${project.image}`}
-            alt="Project detail"
-            sx={{
-              width: "100%",
-              borderRadius: "24px",
-              boxShadow: "0 20px 50px rgba(0,0,0,0.2)",
-              filter: "grayscale(20%)",
-              transition: "filter 0.5s ease",
-              "&:hover": { filter: "grayscale(0%)" },
-              marginBottom: { xs: 7, md: 15 },
-            }}
-          />
-        </Reveal>
-        {/* 2. INTRODUCTION SECTION */}
-        <Grid
-          container
-          spacing={8}
-          alignItems="center"
-          sx={{ mb: 15 }}
-          textAlign={{ xs: "center", lg: "start" }}
-        >
-          {/* <Grid item xs={12} md={7}> */}
+        <Box ref={sectionRef} id={"introduction"} sx={sectionBaseStyles}>
+          <FramedContainer isVisible={isVisible}>
+            <Grid
+              container
+              spacing={8}
+              alignItems="center"
+              sx={{ m: 2.5 }}
+              textAlign={{ xs: "center", lg: "start" }}
+              display={"flex"}
+            >
+              <Reveal direction="up">
+                <Box>
+                  <Typography variant="h2">
+                    {project.introduction.title}
+                  </Typography>
+                  <Typography variant="h5" sx={subTitleMargins}>
+                    {project.introduction.subTitle}
+                  </Typography>
+                </Box>
+                <Typography variant="body1">
+                  {renderDescription(project.introduction.content![0])}
+                </Typography>
+              </Reveal>
+            </Grid>
+          </FramedContainer>
+          <Box sx={{ display: "flex", position: "absolute", bottom: "0" }}>
+            <ScrollNext
+              targetId={"requirements"}
+              label={"Client Requirements"}
+              delay={1.6}
+            />
+          </Box>
+        </Box>
+
+        <Box id={"requirements"}>
           <Reveal direction="up">
             <Typography
-              variant="h5"
+              variant="h2"
               sx={{
-                color: "secondary.main",
-                fontWeight: 500,
-                textTransform: "uppercase",
-                letterSpacing: 3,
-                mb: 3,
+                pt: "18vh",
+                // mb: 6,
               }}
             >
-              Introduction
+              {project.requirements.title}
             </Typography>
-            <Typography
-              variant="body1"
-              sx={{
-                lineHeight: 1.9,
-                fontSize: "1.1rem",
-                color: "primary.main",
-                opacity: 0.85,
-              }}
-            >
-              {project.introduction}
+            <Typography variant="h5" sx={subTitleMargins}>
+              {project.requirements.subTitle}
             </Typography>
           </Reveal>
-        </Grid>
-        {/* <Grid item xs={12} md={5}> */}
-        {/* </Grid> */}
-        {/* </Grid> */}
+          <EditorialRequirements
+            requirements={project.requirements.content}
+          ></EditorialRequirements>
+          <Box></Box>
+          <Box sx={{ height: "7.5vh" }}></Box>
+          <ScrollNext
+            targetId={"solution"}
+            label={"Solution Breakdown"}
+            delay={1.6}
+          />
+          {/* </Box> */}
+        </Box>
+
+        <Box id={"solution"}>
+          <Reveal direction="up">
+            <Typography
+              variant="h2"
+              sx={{
+                pt: "18vh",
+                // mb: 6,
+              }}
+            >
+              {project.solution.title}
+            </Typography>
+            <Typography variant="h5" sx={subTitleMargins}>
+              {project.solution.subTitle}
+            </Typography>
+          </Reveal>
+          {content(project.solution.content)}
+
+          <ProjectSlideshow images={project.solution.images}></ProjectSlideshow>
+        </Box>
 
         {/* 3. DYNAMIC SECTIONS */}
         {project.sections.map((section, sIdx) => (
           <Box key={`section-${sIdx}`} sx={{ mb: 15 }}>
             <Reveal direction="up">
               <Typography
-                variant="h3"
+                id={sIdx + section.title}
+                variant="h2"
                 sx={{
-                  fontWeight: 900,
-                  textTransform: "uppercase",
-                  color: "primary.main",
-                  letterSpacing: -1,
+                  pt: "0",
                   mb: 6,
-                  fontSize: { xs: "2rem", md: "3.5rem" },
                 }}
               >
                 {section.title}
@@ -170,39 +210,9 @@ export const ProjectDetailTemplate: React.FC<ProjectDetailProps> = ({
             </Reveal>
 
             {/* List-style content (e.g., Client Requirements) */}
-            {section.content && (
-              <Grid container spacing={4}>
-                {section.content.map((text, tIdx) => (
-                  //   <Grid item xs={12} md={6} key={`text-${tIdx}`}>
-
-                  <Reveal delay={tIdx * 0.1}>
-                    <Box sx={{ display: "flex", gap: 3, mb: 2 }}>
-                      {section?.content?.length! > 1 && (
-                        <Typography
-                          sx={{
-                            color: "secondary.main",
-                            fontWeight: 800,
-                            mt: 0.5,
-                          }}
-                        >
-                          {(tIdx + 1).toString().padStart(2, "0")}
-                        </Typography>
-                      )}
-                      <Typography
-                        sx={{
-                          lineHeight: 1.8,
-                          opacity: 0.8,
-                          fontSize: "1.05rem",
-                        }}
-                      >
-                        {text}
-                      </Typography>
-                    </Box>
-                  </Reveal>
-                  //   </Grid>
-                ))}
-              </Grid>
-            )}
+            {section.content &&
+              // <Content content={content}></Content>
+              content(section.content)}
 
             {/* Sub-sections (e.g., Architecture, Solution details) */}
             {section.subsections && (
@@ -251,40 +261,6 @@ export const ProjectDetailTemplate: React.FC<ProjectDetailProps> = ({
           </Box>
         ))}
 
-        {/* {project.visitWebsite !== "" && (
-          <Reveal direction="up">
-            <Box
-              sx={{
-                "&:hover": {
-                  "& .arrow-icon": {
-                    transform: "translate(2px, -2px)",
-                  },
-                },
-              }}
-            >
-              <Typography
-                variant="h3"
-                sx={{
-                  fontWeight: 900,
-                  textTransform: "uppercase",
-                  color: "primary.main",
-                  letterSpacing: -1,
-                  mb: 6,
-                  fontSize: { xs: "2rem", md: "3.5rem" },
-                }}
-              >
-                {"Visit Live Website"}
-              </Typography>
-              <ArrowOutward
-                className="arrow-icon"
-                sx={{
-                  transition: "transform 0.3s ease",
-                }}
-              />
-            </Box>
-          </Reveal>
-        )} */}
-
         {project.visitWebsite !== "" && (
           <Box
             sx={{
@@ -319,13 +295,8 @@ export const ProjectDetailTemplate: React.FC<ProjectDetailProps> = ({
               }}
             >
               <Typography
-                variant="h3"
+                variant="h2"
                 sx={{
-                  fontWeight: 900,
-                  textTransform: "uppercase",
-                  color: "primary.main",
-                  letterSpacing: -1,
-                  fontSize: { xs: "2rem", md: "3.5rem" },
                   cursor: "pointer",
                 }}
               >
@@ -346,10 +317,6 @@ export const ProjectDetailTemplate: React.FC<ProjectDetailProps> = ({
         <Typography
           variant="h5"
           sx={{
-            color: "secondary.main",
-            fontWeight: 500,
-            textTransform: "uppercase",
-            letterSpacing: 2,
             mb: 0,
           }}
         >
@@ -386,15 +353,7 @@ export const CollapsibleSubsection = ({ sub }: { sub: any }) => {
             ▪
           </Typography>
         )}
-        <Typography
-          sx={{
-            lineHeight: 1.8,
-            opacity: 0.8,
-            fontSize: "1.05rem",
-          }}
-        >
-          {paragraph}
-        </Typography>
+        <Typography variant="body1">{paragraph}</Typography>
       </Box>
     ));
 
@@ -428,10 +387,6 @@ export const CollapsibleSubsection = ({ sub }: { sub: any }) => {
             className="sub-title"
             variant="h5"
             sx={{
-              color: "secondary.main",
-              fontWeight: 500,
-              textTransform: "uppercase",
-              letterSpacing: 2,
               transition: "color 0.3s ease",
               cursor: isCollapsible ? "pointer" : "inherit",
             }}

@@ -5,8 +5,11 @@ export const sectionBaseStyles = {
   justifyContent: "center",
   minHeight: "100vh",
   width: "100%",
-  gap: "3vw",
   position: "relative",
-  px: { xs: 4, md: 0 },
   overflow: "hidden",
+  //
+  gap: "3vw",
+  px: { xs: 4, md: 0 },
 };
+
+export const subTitleMargins = { mt: 1.5, mb: 3 };

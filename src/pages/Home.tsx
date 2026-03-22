@@ -5,6 +5,8 @@ import { sectionBaseStyles } from "../components/style";
 import { AboutSection } from "../components/AboutSection";
 import { ProjectSection } from "../components/ProjectSection_";
 import { ProjectTimeline } from "../components/ProjectTimeLine";
+import { HeroSection } from "../components/HeroSection";
+import { useSectionObserver } from "../hooks/SectionObserver";
 
 /**
  * Reusable Animation Wrapper
@@ -16,7 +18,7 @@ export const Reveal = ({
   delay = 0,
 }: {
   children: ReactNode;
-  direction?: "up" | "left" | "right";
+  direction?: "up" | "left" | "right" | "down";
   delay?: number;
 }) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -41,6 +43,8 @@ export const Reveal = ({
     switch (direction) {
       case "up":
         return "translateY(50px)";
+      case "down":
+        return "translateY(-50px)";
       case "left":
         return "translateX(-50px)";
       case "right":
@@ -82,9 +86,6 @@ export const NavChip = ({ label }: { label: string }) => (
 );
 
 const Home = () => {
-  const [isAboutMeVisible, setIsAboutMeVisible] = useState(false);
-  const aboutRef = useRef<HTMLDivElement>(null);
-  const [activeProject, setActiveProject] = useState("projects");
   const theme = useTheme();
 
   const projectsList = [
@@ -93,141 +94,23 @@ const Home = () => {
     { id: "project3", title: "Payment Gateway & CMS" },
   ];
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveProject(entry.target.id);
-          }
-        });
-      },
-      { threshold: 0.6 }, // Section must be 60% visible to be "active"
-    );
-
-    projectsList.forEach((p) => {
-      const el = document.getElementById(p.id);
-      if (el) observer.observe(el);
-    });
-
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    let timer: NodeJS.Timeout;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          timer = setTimeout(() => setIsAboutMeVisible(true), 100);
-        } else {
-          clearTimeout(timer);
-          setIsAboutMeVisible(false);
-        }
-      },
-      { threshold: 0.3 },
-    );
-
-    if (aboutRef.current) observer.observe(aboutRef.current);
-
-    return () => {
-      observer.disconnect();
-      clearTimeout(timer);
-    };
-  }, []);
-
-  // Shared styles for sections
-
   return (
     <Box
       sx={{
-        backgroundColor: isAboutMeVisible
-          ? // ? "linear-gradient(180deg, #ffffff00, #0000ff17, #0000ff26, #ffffff00)"
-            "#0000ff17"
-          : "transparent",
+        // backgroundColor: isAboutMeVisible ? "#0000ff17" : "transparent",
         transition: "background-color 0.5s ease",
       }}
     >
-      {/* SECTION 1: HERO */}
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          height: "100vh",
-          width: "100%",
-          position: "relative",
-          overflow: "hidden",
-        }}
-      >
-        <Box sx={{ p: 4, textAlign: "center", maxWidth: "1200px" }}>
-          {/* POSTER NAME WITH DELAYED CHARACTER ANIMATION */}
-          <Reveal direction="up">
-            <Typography
-              variant="poster"
-              sx={{
-                marginBottom: "4vh",
-                display: "block",
-                letterSpacing: { xs: 8, md: 15 },
-                fontSize: { xs: "3rem", md: "6rem" }, // Responsive sizing
-                fontWeight: 900,
-                textTransform: "uppercase",
-                background:
-                  "linear-gradient(180deg, #292929 30%, #535353 100%)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-              }}
-            >
-              REHAM ALSABBAGH
-            </Typography>
-
-            {/* TITLES WITH STAGGERED FADE-IN */}
-            <Typography
-              variant="h2"
-              sx={{
-                mb: 2,
-                color: "secondary.main",
-                fontWeight: 300, // Thinner weight looks more "Senior/Expert"
-                textTransform: "uppercase",
-                letterSpacing: 4,
-              }}
-            >
-              Senior Web Developer
-            </Typography>
-          </Reveal>
-
-          {/* THE STATEMENT */}
-          <Reveal direction="up" delay={0.7}>
-            <Typography
-              variant="body1"
-              sx={{
-                maxWidth: "600px",
-                margin: "0 auto",
-                color: "primary.main",
-                lineHeight: 1.8,
-                opacity: 0.8,
-                fontWeight: 400,
-                fontStyle: "italic",
-              }}
-            >
-              Crafting high-fidelity, accessible digital experiences where UX
-              design meets scalable frontend engineering.
-            </Typography>
-          </Reveal>
-        </Box>
-
-        {/* SCROLL INDICATOR */}
-        <Box display="flex" position="absolute" bottom="0">
-          <ScrollNext targetId="about" label="Learn More" delay={1.7} />
-        </Box>
-      </Box>
-
+      <HeroSection
+        type="home"
+        title="REHAM ALSABBAGH"
+        subtitle="Senior Web Developer"
+        description="Crafting high-fidelity, accessible digital experiences where UX design meets scalable frontend engineering."
+        targetId="about"
+        scrollLabel="Learn More"
+      />
       {/* SECTION 2: ABOUT */}
-      <AboutSection
-        aboutRef={aboutRef}
-        isAboutMeVisible={isAboutMeVisible}
-      ></AboutSection>
+      <AboutSection></AboutSection>
 
       <Box sx={{ position: "relative" }}>
         <ProjectTimeline projects={projectsList} />

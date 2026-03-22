@@ -100,7 +100,7 @@ export default function ProjectDetail() {
               }}
             >
               <Typography variant="body1" paragraph>
-                {project.introduction}
+                {/* {project.introduction.content[0]} */}
               </Typography>
             </Box>
           </AnimatedSection>

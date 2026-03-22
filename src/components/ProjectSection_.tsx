@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Reveal } from "../pages/Home";
 import { ScrollNext } from "./ScrollNext";
 import { KeyboardArrowRight } from "@mui/icons-material";
+import { subTitleMargins } from "./style";
 
 interface ProjectSectionProps {
   id: string;
@@ -59,14 +60,8 @@ export const ProjectSection = ({
       >
         <Reveal direction="up">
           <Typography
-            variant="h3"
+            variant="h2"
             sx={{
-              color: "primary.main",
-              fontWeight: 900,
-              textTransform: "uppercase",
-              letterSpacing: -0.5,
-              fontSize: { xs: "1.8rem", lg: "2.2rem" },
-              lineHeight: 1.1,
               mb: "1.5vh",
             }}
           >
@@ -74,16 +69,12 @@ export const ProjectSection = ({
           </Typography>
 
           <Typography
-            variant="h6"
+            variant="h5"
             sx={{
-              color: "secondary.main",
-              fontWeight: 500,
-              textTransform: "uppercase",
-              letterSpacing: 3,
-              mt: 1.5,
-              mb: 3,
-              fontSize: "1rem",
-              display: { xs: "block", lg: "none", xl: "block" },
+              ...subTitleMargins,
+              ...{
+                display: { xs: "block", lg: "none", xl: "block" },
+              },
             }}
           >
             {subtitle}
@@ -92,7 +83,7 @@ export const ProjectSection = ({
           <Typography
             variant="body1"
             color="primary"
-            sx={{ lineHeight: 1.8, opacity: 0.85, fontSize: "1rem" }}
+            // sx={{ lineHeight: 1.8, opacity: 0.85, fontSize: "1rem" }}
           >
             {description}
           </Typography>
@@ -171,20 +162,22 @@ export const ProjectSection = ({
 /**
  * DevicePreview handles both Macbook and (optional) Phone frames
  */
-const DevicePreview = ({
+export const DevicePreview = ({
   baseImg,
   hoverImg,
   mobileImg,
+  height,
 }: {
   baseImg: string;
   hoverImg: string;
   mobileImg?: string;
+  height?: any;
 }) => {
   const publicPath = process.env.PUBLIC_URL || "";
 
   // Shared sizes for MacBook elements
   const macSizes = {
-    height: { xs: "190px", sm: "350px", lg: "47vh" },
+    height: height ?? { xs: "190px", sm: "350px", lg: "47vh" },
     width: "auto",
     display: "block",
   };

@@ -36,14 +36,8 @@ export default function Footer() {
             flexDirection={{ xs: "column", lg: "row" }}
           >
             <Typography
-              variant="h3"
-              sx={{
-                fontWeight: 900,
-                textTransform: "uppercase",
-                letterSpacing: -1,
-                lineHeight: 1,
-                mb: 0,
-              }}
+              variant="h4"
+              sx={{ fontWeight: 900, textTransform: "uppercase", mb: 0 }}
             >
               Reham <br /> Alsabbagh
             </Typography>
@@ -88,9 +82,6 @@ export default function Footer() {
                   transition: "all 0.3s ease",
                   "&:hover": {
                     opacity: 1,
-                    // bgcolor: "primary.main",
-                    // color: "background.default",
-                    // borderColor: "primary.main",
                   },
                 }}
               >

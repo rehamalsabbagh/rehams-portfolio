@@ -11,7 +11,7 @@ const bounce = keyframes`
 export const ScrollNext = ({
   targetId,
   label,
-  delay = 1.2,
+  delay = 0.5,
 }: {
   targetId: string;
   label: string;

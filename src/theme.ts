@@ -1,4 +1,4 @@
-import { createTheme } from "@mui/material/styles";
+import { createTheme, CSSProperties } from "@mui/material/styles";
 
 // 1. Module augmentation to allow TypeScript to recognize the new breakpoint
 declare module "@mui/material/styles" {
@@ -14,18 +14,17 @@ declare module "@mui/material/styles" {
 
 declare module "@mui/material/styles" {
   interface TypographyVariants {
-    poster: React.CSSProperties;
-    navButton: React.CSSProperties;
+    poster: CSSProperties;
+    navButton: CSSProperties;
   }
 
-  // allow configuration using `createTheme`
   interface TypographyVariantsOptions {
-    poster?: React.CSSProperties;
-    navButton: React.CSSProperties;
+    poster?: CSSProperties;
+    navButton?: CSSProperties;
   }
 }
 
-// Update the Typography's variant prop options
+// This tells the Typography component that 'poster' is a valid variant prop
 declare module "@mui/material/Typography" {
   interface TypographyPropsVariantOverrides {
     poster: true;
@@ -46,63 +45,6 @@ export const theme = createTheme({
   },
   typography: {
     fontFamily: "Instrument Sans, system-ui, sans-serif",
-    poster: {
-      fontSize: "5.5rem",
-      fontWeight: 500,
-      lineHeight: 1.2,
-      display: "block",
-    },
-    h1: {
-      fontWeight: 700,
-      xs: {
-        fontSize: "2.5rem",
-        lineHeight: 1.5,
-      },
-      lg: {
-        fontSize: "3.5rem",
-      },
-    },
-    h2: {
-      fontSize: "2.2rem",
-      fontWeight: 900,
-    },
-    h3: {
-      fontSize: "1.75rem",
-      fontWeight: 600,
-      lineHeight: 1.3,
-    },
-    h4: {
-      fontSize: "1.5rem",
-      fontWeight: 600,
-      lineHeight: 1.4,
-    },
-    h5: {
-      fontSize: "1.25rem",
-      fontWeight: 500,
-      lineHeight: 1.5,
-    },
-    h6: {
-      fontSize: "1.1rem",
-      fontWeight: 500,
-      lineHeight: 1.6,
-    },
-    body1: {
-      fontSize: "1rem",
-      lineHeight: 1.7,
-      letterSpacing: 0.6,
-    },
-    caption: {
-      fontSize: "0.875rem",
-      lineHeight: 1.4,
-      display: "inline-block",
-    },
-    navButton: {
-      fontSize: "0.8rem",
-      fontWeight: 500,
-      letterSpacing: 1,
-      whiteSpace: "nowrap",
-      cursor: "pointer !important",
-    },
   },
   palette: {
     primary: {
@@ -122,6 +64,96 @@ export const theme = createTheme({
         root: {
           cursor: "default",
           userSelect: "none",
+        },
+        ...({
+          //** POSTER **//
+          poster: ({ theme }: { theme: any }) => ({
+            fontSize: "2.5rem",
+            letterSpacing: 8,
+            fontWeight: 900,
+            lineHeight: 1.2,
+            display: "block",
+            textTransform: "uppercase",
+            [theme.breakpoints.up("lg")]: {
+              fontSize: "6rem",
+              letterSpacing: 15,
+            },
+          }),
+          //** NAV BUTTON **//
+          navButton: {
+            fontSize: "0.8rem",
+            letterSpacing: 1,
+            fontWeight: 500,
+            whiteSpace: "nowrap",
+            cursor: "pointer !important",
+          },
+        } as any),
+        //*** H1 ***//
+        h1: ({ theme }) => ({
+          fontSize: "2.2rem",
+          letterSpacing: 5,
+          fontWeight: 900,
+          textTransform: "uppercase",
+          [theme.breakpoints.up("lg")]: {
+            fontSize: "4rem",
+            letterSpacing: 10,
+          },
+        }),
+        //*** H2 ***//
+        h2: ({ theme }) => ({
+          fontSize: "1.8rem",
+          letterSpacing: 5,
+          fontWeight: 900,
+          color: theme.palette.primary.main,
+          textTransform: "uppercase",
+          marginBottom: "2vh",
+          // You can now use your custom breakpoint here!
+          // [theme.breakpoints.up("tabletLg")]: {
+          //   fontSize: "2.8rem",
+          // },
+          [theme.breakpoints.up("lg")]: {
+            fontSize: "3.2rem",
+            letterSpacing: 3.5,
+          },
+        }),
+        h3: ({ theme }) => ({
+          fontSize: "1.5rem",
+          letterSpacing: -1,
+          fontWeight: 900,
+          textTransform: "uppercase",
+          lineHeight: 1.3,
+          [theme.breakpoints.up("lg")]: {
+            fontSize: "3rem",
+          },
+        }),
+        h4: {
+          fontSize: "1.5rem",
+          fontWeight: 600,
+          lineHeight: 1.4,
+        },
+        h5: ({ theme }) => ({
+          fontSize: "1.25rem",
+          letterSpacing: 3,
+          fontWeight: 400,
+          color: theme.palette.secondary.main,
+          textTransform: "uppercase",
+        }),
+        h6: {
+          fontSize: "1.1rem",
+          fontWeight: 500,
+          lineHeight: 1.6,
+        },
+        body1: {
+          lineHeight: 1.9,
+          fontSize: "1.15rem",
+          fontWeight: 300,
+          color: "primary.main",
+          opacity: 0.85,
+        },
+        caption: {
+          fontSize: "0.875rem",
+          lineHeight: 1.4,
+          display: "inline-block",
         },
       },
     },
