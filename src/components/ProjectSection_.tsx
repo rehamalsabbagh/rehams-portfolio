@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Reveal } from "../pages/Home";
 import { ScrollNext } from "./ScrollNext";
 import { KeyboardArrowRight } from "@mui/icons-material";
-import { subTitleMargins } from "./style";
+import { subTitleStyle } from "./style";
 
 interface ProjectSectionProps {
   id: string;
@@ -71,9 +71,9 @@ export const ProjectSection = ({
           <Typography
             variant="h5"
             sx={{
-              ...subTitleMargins,
+              ...subTitleStyle,
               ...{
-                display: { xs: "block", lg: "none", xl: "block" },
+                // display: { xs: "block", lg: "none", xl: "block" },
               },
             }}
           >
@@ -100,7 +100,7 @@ export const ProjectSection = ({
             >
               <Typography
                 sx={{
-                  mt: 4,
+                  mt: { xs: 2, lg: 4 },
                   color: "secondary.main",
                   fontWeight: 600,
                   textTransform: "uppercase",
@@ -137,7 +137,7 @@ export const ProjectSection = ({
       <Box
         sx={{
           width: { xs: "100%", lg: "35vw" },
-          mb: { xs: "2vh", lg: "0" },
+          mb: { xs: "0.5vh", lg: "0" },
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -152,7 +152,13 @@ export const ProjectSection = ({
         </Reveal>
       </Box>
 
-      <Box display="flex" position="absolute" bottom="0vh">
+      <Box
+        sx={{
+          display: "flex",
+          position: "absolute",
+          bottom: 0,
+        }}
+      >
         <ScrollNext targetId={nextTargetId} label="Next Project" delay={1.3} />
       </Box>
     </Box>

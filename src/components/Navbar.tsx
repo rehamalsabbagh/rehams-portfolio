@@ -18,25 +18,26 @@ import { KeyboardDoubleArrowUp } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import { MouseEventHandler, useEffect, useState } from "react";
 import { defaultStyle } from "./ButtonLink";
+import { projects } from "../data/projects";
 
 // Mocking the Projects Data (imported or defined locally)
-const projects = [
-  {
-    id: "3d-plane-seat-configurator",
-    title: "3D Plane Seat Configurator",
-    image: "/assets/06-3d-config-02.png",
-  },
-  {
-    id: "2d-vehicle-configurator",
-    title: "2D 360° Vehicle Configurator",
-    image: "/assets/18-2d-config.png",
-  },
-  {
-    id: "online-gateway-website",
-    title: "Payment Gateway Website & CMS",
-    image: "/assets/11-tap-website-01.png",
-  },
-];
+// const projects = [
+//   {
+//     id: "3d-plane-seat-configurator",
+//     title: "3D Plane Seat Configurator",
+//     image: "/assets/06-3d-config-02.png",
+//   },
+//   {
+//     id: "2d-vehicle-configurator",
+//     title: "2D 360° Vehicle Configurator",
+//     image: "/assets/18-2d-config.png",
+//   },
+//   {
+//     id: "online-gateway-website",
+//     title: "Payment Gateway Website & CMS",
+//     image: "/assets/11-tap-website-01.png",
+//   },
+// ];
 
 type DropdownType = "projects" | "contact" | null;
 
@@ -387,7 +388,7 @@ export const ProjectsContent = ({
         display: "flex",
         flexDirection: { xs: "column", md: "row" },
         justifyContent: justifyContent ?? "center",
-        gap: 3,
+        gap: 5,
         pt: { xs: 4, md: 6 },
         pb: { xs: 4, md: 2 },
         px: 0,
@@ -406,26 +407,34 @@ export const ProjectsContent = ({
               <Box
                 sx={{
                   textAlign: "center",
-                  // border: `1px solid ${theme.palette.secondary.main}22`,
-                  borderRadius: "30px",
-                  width: { xs: "100%", md: "25vw" },
-                  p: 3,
+                  width: { xs: "100%", md: "20vw" },
+                  // p: 3,
                   transition: "0.3s",
-                  bgcolor: "#ffffff20",
+                  // bgcolor: "#ffffff20",
                   "&:hover": {
-                    bgcolor: "#ffffff50",
-                    boxShadow: "0 0 20px #0000000a",
+                    // bgcolor: "#ffffff50",
+                    // boxShadow: "0 0 20px #0000000a",
                   },
                 }}
               >
                 <Box
-                  component="img"
-                  src={process.env.PUBLIC_URL + proj.image}
+                  // component="img"
+                  // src={process.env.PUBLIC_URL + proj.image}
                   sx={{
-                    width: "95%",
-                    borderRadius: "15px",
+                    width: "100%",
+                    height: "248px",
                     mb: 2,
-                    aspectRatio: "auto",
+                    aspectRatio: "48:31",
+                    backgroundSize: "96%",
+                    transition: "0.3s all",
+                    backgroundRepeat: "no-repeat",
+                    backgroundPosition: "center",
+
+                    backgroundImage:
+                      "url(" + process.env.PUBLIC_URL + proj.image + ")",
+                    ":hover": {
+                      backgroundSize: "100%",
+                    },
                   }}
                 />
                 <Typography

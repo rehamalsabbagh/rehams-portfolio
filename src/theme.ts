@@ -112,8 +112,8 @@ export const theme = createTheme({
           //   fontSize: "2.8rem",
           // },
           [theme.breakpoints.up("lg")]: {
-            fontSize: "3.2rem",
-            letterSpacing: 3.5,
+            fontSize: "2.8rem",
+            letterSpacing: 2.5,
           },
         }),
         h3: ({ theme }) => ({
@@ -143,13 +143,16 @@ export const theme = createTheme({
           fontWeight: 500,
           lineHeight: 1.6,
         },
-        body1: {
+        body1: ({ theme }) => ({
           lineHeight: 1.9,
-          fontSize: "1.15rem",
+          fontSize: "1.08rem",
           fontWeight: 300,
           color: "primary.main",
           opacity: 0.85,
-        },
+          [theme.breakpoints.up("lg")]: {
+            fontSize: "1.15rem",
+          },
+        }),
         caption: {
           fontSize: "0.875rem",
           lineHeight: 1.4,

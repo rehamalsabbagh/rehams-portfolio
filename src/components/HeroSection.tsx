@@ -119,7 +119,13 @@ export const HeroSection = ({
       </Box>
 
       {/* 4. Scroll Indicator */}
-      <Box sx={{ display: "flex", position: "absolute", bottom: "0" }}>
+      <Box
+        sx={{
+          display: "flex",
+          position: "absolute",
+          bottom: { lg: 0, xs: "30px" },
+        }}
+      >
         <ScrollNext targetId={targetId} label={scrollLabel} delay={1.6} />
       </Box>
     </Box>

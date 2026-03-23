@@ -51,7 +51,6 @@ export const projects: Project[] = [
       ],
       images: [],
     },
-    // "An enterprise-grade platform for airlines to customize aircraft interiors via an |interactive 3D interface|. Built with React and |Three.js|, the system provides real-time visualization of modular components and materials. The architecture is |fully data-driven|, utilizing centralized CSV structures for dynamic UI generation and pricing logic. Featuring |animated camera transitions| and AWS Lambda integration, it streamlines the workflow from initial design to |automated PDF order summaries|.",
     image: "/assets/22-3d-config.png",
     hoverImage: "/assets/23-3d-config.png",
 
@@ -246,6 +245,170 @@ export const projects: Project[] = [
     visitWebsite: "",
   },
   {
+    id: "configurator-admin-control-plane",
+    title: "Configurator Admin Portal",
+    role: "Lead Frontend Developer",
+    techStack: [
+      "React.js",
+      "TypeScript",
+      "AWS Cognito (RBAC)",
+      "AWS Lambda & S3",
+      "Dynamic CSV Orchestration",
+      "Tailwind CSS",
+    ],
+    introduction: {
+      title: "Introduction",
+      subTitle: "Operational Control Plane",
+      content: [
+        "A centralized |administrative dashboard| designed to manage users and configurations for the 3D Plane Seat Configurator. The system acts as a |Single Source of Truth|, utilizing an S3-hosted CSV architecture to synchronize pricing and logic across both the client and admin platforms. Built with |AWS Cognito| for secure role-based access, it provides full lifecycle management of user accounts, |real-time cost breakdown control|, and direct oversight of custom asset uploads.",
+      ],
+      images: [],
+    },
+    image: "/assets/24-admin-app-01.png",
+    hoverImage: "/assets/25-admin-app-02.png",
+    cover: "/assets/admin-portal-cover.png",
+    requirements: {
+      title: "Client Requirements",
+      subTitle: "Scope Overview",
+      content: [
+        "A secure management interface with robust user CRUD operations and account verification workflows.",
+        "Live data-driven synchronization of configuration rules and pricing via centralized S3 storage.",
+        "Comprehensive user activity monitoring, including last-login tracking and inactivity filtering.",
+        "Centralized access to user-submitted assets and automated PDF order summaries.",
+        "Granular account status control including manual verification and automated activation emails.",
+      ],
+      images: [],
+    },
+    solution: {
+      title: "The Solution",
+      subTitle: "Infrastructure & Security",
+      content: [
+        "We implemented a |bi-directional data flow| where administrative changes to S3-hosted CSVs instantly update the logic of the public configurator. Security is handled via |AWS Cognito RBAC|, ensuring only authorized personnel can manage sensitive user data or modify |pricing architectures|. The UI was built to be purely functional and high-density, allowing for |rapid filtering of pending accounts| and seamless document retrieval.",
+      ],
+      images: ["/assets/26-admin-app-03.png"],
+    },
+    sections: [
+      {
+        title: "Solution Details",
+        subTitle: "",
+        subsections: [
+          {
+            title: "Identity & Access Management",
+            subTitle: "Security First",
+            content: [
+              "Integrated |AWS Cognito| to handle complex user states (Verified vs. Pending) and secure activation workflows.",
+              "Implemented |batch email triggers| through Lambda to re-send activation credentials to inactive or unverified users.",
+              "Designed a |high-density user table| with advanced filtering for last-login timestamps and verification status.",
+            ],
+            images: [],
+          },
+          {
+            title: "Dynamic Asset & Price Control",
+            subTitle: "Data Orchestration",
+            content: [
+              "Engineered the |CSV synchronization layer|, allowing admins to adjust cost-breakdowns without writing a single line of code.",
+              "Created a |centralized file viewer| for user-uploaded customization specs stored in |AWS S3|.",
+              "Shared the |PDF generation logic| between the client and admin apps to ensure 100% document consistency.",
+            ],
+            images: [],
+          },
+        ],
+        images: [],
+      },
+      {
+        title: "Impact",
+        subTitle: "Operational Governance",
+        content: [
+          "Successfully |bridged the gap| between client-side customization and back-office operations. By centralizing the |CSV-driven logic|, we reduced maintenance overhead by 50% and eliminated data discrepancies. The |automated activation workflow| significantly decreased manual support tickets, while the |unified S3 architecture| ensured that every order summary remains a perfectly accurate reflection of the user's intent.",
+        ],
+        images: [],
+      },
+    ],
+    visitWebsite: "",
+  },
+  {
+    id: "examiner-avatar-simulator",
+    title: "AI Examiner Avatar Simulator",
+    role: "Lead Frontend Developer",
+    techStack: [
+      "React.js",
+      "Three.js",
+      "React Three Fiber",
+      "GLSL / Shaders",
+      "Web Audio API",
+      "State Machine Logic",
+    ],
+    introduction: {
+      title: "Introduction",
+      subTitle: "Conversational AI Visualization",
+      content: [
+        "A high-fidelity |examiner simulator| designed to visualize AI-driven conversations through a lifelike 3D avatar. Built with |React Three Fiber|, the system synchronizes complex |facial animations| with voice synthesis to simulate realistic human interaction. The project focuses on creating a |natural behavioral flow| through randomized animation blending and state-based logic, ensuring an immersive and non-repetitive user experience.",
+      ],
+      images: [],
+    },
+    image: "/assets/21-avatar-01.png", // Replace with your path
+    hoverImage: "/assets/22-avatar-02.png", // Replace with your path
+    cover: "", // Replace with your path
+    requirements: {
+      title: "Client Requirements",
+      subTitle: "Scope Overview",
+      content: [
+        "A dynamic 3D avatar system capable of loading and controlling animated GLB models in real-time.",
+        "Precision lip-sync simulation and facial expressions synchronized with external audio streams.",
+        "A state-based animation engine supporting four distinct modes: Idle, Talking, Listening, and Encouraging.",
+        "Advanced procedural randomization to prevent repetitive movements and ensure natural facial behavior.",
+        "A language-agnostic architecture designed for English phonemes with scalability for global localization.",
+      ],
+      images: [],
+    },
+    solution: {
+      title: "The Solution",
+      subTitle: "Behavioral Logic",
+      content: [
+        "The system utilizes a |custom State Machine| to manage animation transitions | while a randomization layer | selects from a library of facial variations to avoid the 'Uncanny Valley.' For speech, we implemented |adaptive mouth movement logic| that simulates English phonemes | even in the absence of raw audio data | by utilizing timed sequence testing to cover various speaking speeds and cadences.",
+      ],
+      images: ["/assets/23-avatar-03.png"],
+    },
+    sections: [
+      {
+        title: "Solution Details",
+        subTitle: "",
+        subsections: [
+          {
+            title: "Animation Blending & State Management",
+            subTitle: "Procedural Behavior",
+            content: [
+              "Developed a library of animation variations for each state—|Idle, Talking, Listening, and Encouraging|—to ensure visual variety.",
+              "Implemented a |randomized selection logic| that blends transitions between states, mimicking natural micro-expressions.",
+              "Designed the system to be |completely decoupleable from specific audio assets|, allowing for flexible testing across different speech patterns.",
+            ],
+            images: [],
+          },
+          {
+            title: "Phonetic Simulation & Scalability",
+            subTitle: "Linguistic Flexibility",
+            content: [
+              "Engineered the |mouth movement sequences| to prioritize English linguistic patterns while maintaining a modular structure for future languages.",
+              "Utilized |testing phases with varying pause-and-play sequences| to ensure the avatar remained convincing across different speaking speeds.",
+              "Optimized the |GLB rendering pipeline| to maintain 60fps during complex facial morphing on web browsers.",
+            ],
+            images: [],
+          },
+        ],
+        images: [],
+      },
+      {
+        title: "Impact",
+        subTitle: "Human-Centric UX",
+        content: [
+          "Delivered a |lifelike simulation environment| that effectively bridges the gap between AI voice data and human visual expectation. The |randomized animation engine| successfully eliminated mechanical repetition, while the |state-driven architecture| provided a robust framework for expanding into localized markets and |multi-language support|.",
+        ],
+        images: [],
+      },
+    ],
+    visitWebsite: "",
+  },
+  {
     id: "online-gateway-website",
     title: "Payment Gateway Website & CMS",
     role: "Frontend Developer",
@@ -266,7 +429,6 @@ export const projects: Project[] = [
       ],
       images: [],
     },
-    // "A scalable, |multilingual platform| designed to deliver region-specific services across nine international markets. The architecture is entirely |data-driven|, serving tailored content from a centralized database. Developed using an |Atomic UI design system| for maximum consistency, the solution includes a |custom internal CMS| that empowers regional teams to manage localized governance and content, supporting rapid international growth.",
     image: "/assets/19-tap-payments.png",
     hoverImage: "/assets/20-tap-payments.png",
 
@@ -289,7 +451,7 @@ export const projects: Project[] = [
       subTitle: "Customer-Facing Website Architecture",
 
       content: [
-        "A public-facing platform was built using React.js and TypeScript | with a modular atomic UI design system | to ensure maintainability. All content is dynamically rendered via REST APIs | from a centralized database | supporting country-based service customization | and a multilingual framework. This architecture allows for localized messaging and regional offerings | to be served seamlessly | across all global markets.",
+        "A public-facing platform was built using React.js and TypeScript | with a modular atomic UI design system | to ensure maintainability. All content is dynamically rendered via REST APIs | from a centralized database | supporting country-based service customization | and a multilingual framework. This architecture allows for localized content and regional offerings | to be served seamlessly | across all global markets.",
       ],
       images: [
         "/assets/11-tap-website-01.png",
@@ -310,7 +472,7 @@ export const projects: Project[] = [
 
             content: [
               "Content is structured to support 9 regions, each containing multiple languages.",
-              "Regional logic determines available services and localized messaging dynamically.",
+              "Regional logic determines available services and localized content dynamically.",
               "Language and region configurations are abstracted from the UI layer to maintain clean separation of concerns.",
               "This modular structure allows easy onboarding of new countries or language expansions without major codebase changes.",
             ],
@@ -333,7 +495,7 @@ export const projects: Project[] = [
             subTitle: "Maintenance & Scalability",
 
             content: [
-              "Responsibility of ongoing maintenance, feature enhancements, and regional updates.",
+              "Ongoing maintenance, feature enhancements, and regional updates.",
               "The system was designed with scalability in mind to accommodate new services and additional regions.",
               "The architecture minimizes hardcoded logic, ensuring long-term maintainability and adaptability.",
             ],

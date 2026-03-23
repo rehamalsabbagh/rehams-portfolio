@@ -24,7 +24,7 @@ import { DevicePreview } from "../components/ProjectSection_";
 import { FramedContainer } from "../components/FramedContainer";
 import { useSectionObserver } from "../hooks/SectionObserver";
 import { Highlight } from "../components/AboutSection";
-import { sectionBaseStyles, subTitleMargins } from "../components/style";
+import { sectionBaseStyles, subTitleStyle } from "../components/style";
 import { EditorialRequirements } from "../components/ZigZagRequirements";
 import { ScrollNext } from "../components/ScrollNext";
 import { ProjectSlideshow } from "../components/ProjectSlideshow";
@@ -126,7 +126,7 @@ export const ProjectDetailTemplate: React.FC<ProjectDetailProps> = ({
                   <Typography variant="h2">
                     {project.introduction.title}
                   </Typography>
-                  <Typography variant="h5" sx={subTitleMargins}>
+                  <Typography variant="h5" sx={subTitleStyle}>
                     {project.introduction.subTitle}
                   </Typography>
                 </Box>
@@ -136,7 +136,13 @@ export const ProjectDetailTemplate: React.FC<ProjectDetailProps> = ({
               </Reveal>
             </Grid>
           </FramedContainer>
-          <Box sx={{ display: "flex", position: "absolute", bottom: "0" }}>
+          <Box
+            sx={{
+              display: "flex",
+              position: "absolute",
+              bottom: 0,
+            }}
+          >
             <ScrollNext
               targetId={"requirements"}
               label={"Client Requirements"}
@@ -156,7 +162,7 @@ export const ProjectDetailTemplate: React.FC<ProjectDetailProps> = ({
             >
               {project.requirements.title}
             </Typography>
-            <Typography variant="h5" sx={subTitleMargins}>
+            <Typography variant="h5" sx={subTitleStyle}>
               {project.requirements.subTitle}
             </Typography>
           </Reveal>
@@ -165,11 +171,7 @@ export const ProjectDetailTemplate: React.FC<ProjectDetailProps> = ({
           ></EditorialRequirements>
           <Box></Box>
           <Box sx={{ height: "7.5vh" }}></Box>
-          <ScrollNext
-            targetId={"solution"}
-            label={"Solution Breakdown"}
-            delay={1.6}
-          />
+          <ScrollNext targetId={"solution"} label={"Solution"} delay={1.6} />
           {/* </Box> */}
         </Box>
 
@@ -184,12 +186,29 @@ export const ProjectDetailTemplate: React.FC<ProjectDetailProps> = ({
             >
               {project.solution.title}
             </Typography>
-            <Typography variant="h5" sx={subTitleMargins}>
+            <Typography variant="h5" sx={subTitleStyle}>
               {project.solution.subTitle}
             </Typography>
           </Reveal>
           {content(project.solution.content)}
-          <ProjectSlideshow images={project.solution.images}></ProjectSlideshow>
+          {project.solution.images.length > 1 ? (
+            <ProjectSlideshow
+              images={project.solution.images}
+            ></ProjectSlideshow>
+          ) : (
+            <Box
+              component="img"
+              src={process.env.PUBLIC_URL + project.solution.images[0]}
+              alt={"project screenshot"}
+              sx={{
+                width: "100%",
+                borderRadius: "12px",
+                display: "block",
+                mt: "10vh",
+                mb: "15vh",
+              }}
+            />
+          )}
         </Box>
 
         {/* 3. DYNAMIC SECTIONS */}

@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import { sectionBaseStyles, subTitleMargins } from "./style";
+import { sectionBaseStyles, subTitleStyle } from "./style";
 import { NavChip, Reveal } from "../pages/Home";
 import { ScrollNext } from "./ScrollNext";
 import { FramedContainer } from "./FramedContainer";
@@ -34,6 +34,7 @@ export const AboutSection = () => {
       "TypeScript",
       "JavaScript",
       "Component-driven",
+      "Responsive Design",
       "HTML5",
       "CSS3",
       "Tailwind",
@@ -81,7 +82,7 @@ export const AboutSection = () => {
           <Typography
             variant="h5"
             sx={{
-              ...subTitleMargins,
+              ...subTitleStyle,
               ...{ display: { xs: "none", lg: "block" } },
             }}
           >
@@ -132,8 +133,14 @@ export const AboutSection = () => {
         </Box>
       </FramedContainer>
       {/* 4. SCROLL BUTTON */}
-      <Box display="flex" position="absolute" bottom="0">
-        <ScrollNext targetId="projects" label="Projects" delay={2.2} />
+      <Box
+        sx={{
+          display: "flex",
+          position: "absolute",
+          bottom: 0,
+        }}
+      >
+        <ScrollNext targetId="project1" label="Projects" delay={2.2} />
       </Box>
     </Box>
   );

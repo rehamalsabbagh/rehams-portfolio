@@ -12,4 +12,8 @@ export const sectionBaseStyles = {
   px: { xs: 4, md: 0 },
 };
 
-export const subTitleMargins = { mt: 1.5, mb: 3 };
+export const subTitleStyle = {
+  mt: 1.5,
+  mb: 3,
+  display: { xs: "none", lg: "block" },
+};

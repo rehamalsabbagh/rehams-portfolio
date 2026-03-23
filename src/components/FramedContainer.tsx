@@ -13,7 +13,7 @@ interface FramedContainerProps {
 export const FramedContainer = ({
   children,
   isVisible,
-  padding = { xs: "40px 20px", md: "4vh 3vh" },
+  padding = { xs: "20px 20px", md: "4vh 3vh" },
   borderRadius = 40,
   sx,
 }: FramedContainerProps) => {

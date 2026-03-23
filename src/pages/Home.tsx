@@ -7,6 +7,8 @@ import { ProjectSection } from "../components/ProjectSection_";
 import { ProjectTimeline } from "../components/ProjectTimeLine";
 import { HeroSection } from "../components/HeroSection";
 import { useSectionObserver } from "../hooks/SectionObserver";
+import { projects } from "../data/projects";
+import { title } from "process";
 
 /**
  * Reusable Animation Wrapper
@@ -86,13 +88,15 @@ export const NavChip = ({ label }: { label: string }) => (
 );
 
 const Home = () => {
-  const theme = useTheme();
+  // const theme = useTheme();
 
-  const projectsList = [
-    { id: "projects", title: "3D Plane Configurator" },
-    { id: "project2", title: "2D Vehicle Configurator" },
-    { id: "project3", title: "Payment Gateway & CMS" },
-  ];
+  // const projectsList = [
+  //   { id: "projects", title: "3D Plane Seat Configurator" },
+  //   { id: "project2", title: "2D 360° Vehicle Configurator" },
+  //   { id: "project3", title: "Configurator Admin Portal" },
+  //   { id: "project4", title: "Examiner Avatar Simulator" },
+  //   { id: "project5", title: "Payment Gateway & CMS" },
+  // ];
 
   return (
     <Box
@@ -113,13 +117,18 @@ const Home = () => {
       <AboutSection></AboutSection>
 
       <Box sx={{ position: "relative" }}>
-        <ProjectTimeline projects={projectsList} />
+        <ProjectTimeline
+          projects={projects.map((project, idx) => ({
+            id: `project${idx + 1}`,
+            title: project.title,
+          }))}
+        />
 
         {/* Shift your sections slightly right to accommodate the timeline */}
         <Box>
           {/* SECTION 3: PROJECT 1 (Text from bottom, Image from right) */}
           <ProjectSection
-            id="projects"
+            id="project1"
             title="3D Plane Seat Configurator"
             subtitle="Enterprise Architecture & 3D Visualization"
             description="An enterprise React and Three.js application for real-time aircraft customization that leverages a centralized CSV structure to dynamically manage seating, pricing, and 3D visualizations within an AWS-integrated, data-driven workflow."
@@ -145,9 +154,35 @@ const Home = () => {
             imageFirst={false}
           ></ProjectSection>
 
-          {/* SECTION 5: PROJECT 3 (Text from bottom, Image from right) */}
           <ProjectSection
             id="project3"
+            title="Configurator Admin Portal"
+            subtitle="Infrastructure Management & RBAC"
+            description="A secure, data-driven administrative control plane utilizing AWS Cognito and S3 to orchestrate user permissions, real-time pricing logic, and global asset management for the 3D configurator ecosystem."
+            linkTo="/projects/configurator-admin-control-plane"
+            baseImg="/assets/24-admin-app-01.png"
+            hoverImg="/assets/25-admin-app-02.png"
+            nextTargetId="project4"
+            sectionBaseStyles={sectionBaseStyles}
+            imageFirst={true}
+          ></ProjectSection>
+
+          <ProjectSection
+            id="project4"
+            title="AI Examiner Avatar Simulator"
+            subtitle="Conversational AI Visualization & State-Based Animation"
+            description="A high-fidelity 3D simulation environment using Three.js to synchronize lifelike facial animations with voice synthesis, featuring a randomized behavioral engine to eliminate mechanical repetition."
+            linkTo="/projects/examiner-avatar-simulator"
+            baseImg="/assets/21-avatar-01.png"
+            hoverImg="/assets/22-avatar-02.png"
+            nextTargetId="project5"
+            sectionBaseStyles={sectionBaseStyles}
+            imageFirst={false} // Set to false to alternate the layout from the previous section
+          ></ProjectSection>
+
+          {/* SECTION 5: PROJECT 3 (Text from bottom, Image from right) */}
+          <ProjectSection
+            id="project5"
             title="Payment Gateway Website & CMS"
             subtitle="Multilingual Regional Platform & Internal CMS"
             description="A multilingual enterprise platform and custom CMS leveraging an atomic UI design system and dynamic database architecture to deliver region-specific payment services and localized content governance across nine international markets."
