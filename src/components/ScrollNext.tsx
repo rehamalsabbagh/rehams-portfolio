@@ -61,7 +61,7 @@ export const ScrollNext = ({
         justifyContent: "center",
         alignItems: "center",
         position: "relative",
-        mb: 2,
+        mb: window.screen.height < 844 ? 0.5 : 2,
         zIndex: "99",
       }}
     >

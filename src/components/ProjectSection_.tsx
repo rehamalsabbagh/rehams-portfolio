@@ -14,7 +14,7 @@ interface ProjectSectionProps {
   baseImg: string;
   hoverImg: string;
   mobileImg?: string; // New Optional Prop
-  nextTargetId: string;
+  nextTargetId: string | null;
   imageFirst?: boolean;
   sectionBaseStyles: any;
 }
@@ -152,15 +152,22 @@ export const ProjectSection = ({
         </Reveal>
       </Box>
 
-      <Box
-        sx={{
-          display: "flex",
-          position: "absolute",
-          bottom: 0,
-        }}
-      >
-        <ScrollNext targetId={nextTargetId} label="Next Project" delay={1.3} />
-      </Box>
+      {nextTargetId && (
+        <Box
+          sx={{
+            display: "flex",
+            position: window.screen.height < 844 ? "static" : "absolute",
+            mt: window.screen.height < 844 ? "20px" : 0,
+            bottom: 0,
+          }}
+        >
+          <ScrollNext
+            targetId={nextTargetId}
+            label="Next Project"
+            delay={1.3}
+          />
+        </Box>
+      )}
     </Box>
   );
 };

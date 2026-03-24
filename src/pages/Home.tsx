@@ -145,7 +145,7 @@ const Home = () => {
             id="project2"
             title="2D 360° Vehicle Configurator"
             subtitle="Layered 360° Rendering & Data-Driven Configuration"
-            description="A high-performance vehicle configurator utilizing frame-based rendering and layered image stacks to enable real-time customization. Built on a modular, data-driven architecture, and supports persistent state management and automated PDF summaries."
+            description="A high-performance vehicle configurator utilizing frame-based rendering and layered image stacks to enable real-time customization. Built on a modular, data-driven architecture, and supports persistent state management and automated DOC summaries."
             linkTo="/projects/2d-vehicle-configurator"
             baseImg="/assets/17-2d-config-.png"
             hoverImg="/assets/18-2d-config-.png"
@@ -169,7 +169,7 @@ const Home = () => {
 
           <ProjectSection
             id="project4"
-            title="AI Examiner Avatar Simulator"
+            title="Examiner Avatar Simulator"
             subtitle="Conversational AI Visualization & State-Based Animation"
             description="A high-fidelity 3D simulation environment using Three.js to synchronize lifelike facial animations with voice synthesis, featuring a randomized behavioral engine to eliminate mechanical repetition."
             linkTo="/projects/examiner-avatar-simulator"
@@ -190,7 +190,7 @@ const Home = () => {
             baseImg="/assets/19-tap-payments.png"
             hoverImg="/assets/20-tap-payments.png"
             mobileImg="/assets/21-tap-payments.png"
-            nextTargetId=""
+            nextTargetId={null}
             sectionBaseStyles={sectionBaseStyles}
             imageFirst={true}
           ></ProjectSection>

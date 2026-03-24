@@ -28,7 +28,7 @@ const EditorialItem = ({ text, index }: { text: string; index: number }) => {
     visible: {
       scale: 1,
       opacity: 1,
-      transition: { delay: index * 0.15, duration: 0.4 },
+      transition: { delay: index * 0.15, duration: 5 },
     },
   };
 

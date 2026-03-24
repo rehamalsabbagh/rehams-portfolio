@@ -136,7 +136,8 @@ export const AboutSection = () => {
       <Box
         sx={{
           display: "flex",
-          position: "absolute",
+          position: window.screen.height < 844 ? "static" : "absolute",
+          mt: window.screen.height < 844 ? "20px" : 0,
           bottom: 0,
         }}
       >

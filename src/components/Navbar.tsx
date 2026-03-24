@@ -14,7 +14,7 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
-import { KeyboardDoubleArrowUp } from "@mui/icons-material";
+import { Email, KeyboardDoubleArrowUp, LinkedIn } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import { MouseEventHandler, useEffect, useState } from "react";
 import { defaultStyle } from "./ButtonLink";
@@ -75,22 +75,32 @@ export default function Navbar() {
     <Box
       sx={{
         bgcolor: isMobile ? "transparent" : "rgba(255, 255, 255, 0.98)",
-        borderTop: isMobile ? "none" : `1px solid ${theme.palette.divider}`,
+        // borderTop: isMobile ? "none" : `1px solid ${theme.palette.divider}`,
         backdropFilter: isMobile ? "none" : "blur(10px)",
+        display: "flex",
+        flexDirection: "column",
       }}
     >
       {children}
-      <KeyboardDoubleArrowUp
+      <Box
         sx={{
-          display: "block",
-          margin: "auto",
-          py: 2,
-          fontSize: "3.5rem",
+          width: "100%",
+          backgroundColor: "#fbfbfb",
           cursor: "pointer",
-          color: "secondary.main",
         }}
         onClick={() => setActiveDropdown(null)}
-      />
+      >
+        <KeyboardDoubleArrowUp
+          sx={{
+            display: "block",
+            margin: "auto",
+            py: 2,
+            fontSize: "3.5rem",
+
+            color: "secondary.main",
+          }}
+        />
+      </Box>
     </Box>
   );
 
@@ -102,52 +112,75 @@ export default function Navbar() {
         justifyContent: "center",
         gap: { xs: 2, md: 4 },
         pt: { xs: 4, md: 6 },
-        pb: { xs: 4, md: 2 },
+        pb: { xs: 4, md: 6 },
         px: 0,
       }}
     >
       {[
         {
+          icon: <Email sx={{ color: theme.palette.secondary.main }}></Email>,
           label: "Email",
           value: "reham.alsabbagh@gmail.com",
           href: "mailto:reham.alsabbagh@gmail.com",
         },
         {
+          icon: (
+            <LinkedIn sx={{ color: theme.palette.secondary.main }}></LinkedIn>
+          ),
           label: "Social",
           value: "LinkedIn",
           href: "https://www.linkedin.com/in/reham-alsabbagh-a53426122/",
         },
       ].map((item) => (
-        <Box
-          key={item.label}
-          sx={{
-            textAlign: "center",
-            border: `1px solid ${theme.palette.secondary.main}22`,
-            borderRadius: "30px",
-            width: { xs: "100%", md: "25vw" },
-            py: 5,
-          }}
+        <a
+          href={item.href}
+          target="_blank"
+          rel="noreferrer"
+          style={{ textDecoration: "none" }}
         >
-          <Typography
-            variant="overline"
-            sx={{ letterSpacing: 3, color: "secondary.main" }}
+          <Box
+            key={item.label}
+            sx={{
+              textAlign: "center",
+              border: `1px solid ${theme.palette.secondary.main}22`,
+              borderRadius: "30px",
+              width: { xs: "100%", md: "25vw" },
+              py: 5,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
           >
-            {item.label}
-          </Typography>
-          <Typography variant="h5" sx={{ fontWeight: 700, mt: 1 }}>
-            <a
-              href={item.href}
-              target="_blank"
-              rel="noreferrer"
-              style={{
+            {item.icon}
+            <Typography
+              variant="overline"
+              sx={{
+                letterSpacing: 3,
+                color: "secondary.main",
+                cursor: "pointer",
+              }}
+            >
+              {item.label}
+            </Typography>
+            <Typography
+              variant="h5"
+              sx={{
+                fontWeight: 700,
+                mt: 1,
+                fontSize: {
+                  md: "0.6rem",
+                  xs: "0.8rem",
+                  lg: "1rem",
+                  cursor: "pointer",
+                },
                 color: theme.palette.primary.main,
                 textDecoration: "none",
               }}
             >
               {item.value}
-            </a>
-          </Typography>
-        </Box>
+            </Typography>
+          </Box>
+        </a>
       ))}
     </Box>
   );
@@ -171,7 +204,15 @@ export default function Navbar() {
           }}
         >
           <Toolbar
-            sx={{ justifyContent: "space-between", px: { xs: 1, md: "2vw" } }}
+            sx={{
+              justifyContent: "space-between",
+              px: { xs: 1, md: "2vw" },
+
+              borderBottom:
+                !isMobile && activeDropdown
+                  ? `1px solid ${theme.palette.divider}`
+                  : "none",
+            }}
           >
             <Typography
               variant="h6"
@@ -291,12 +332,12 @@ export default function Navbar() {
           sx: { width: "100%", bgcolor: "background.default", p: 3 },
         }}
       >
-        <Box sx={{ display: "flex", justifyContent: "flex-end", mb: 4 }}>
+        {/* <Box sx={{ display: "flex", justifyContent: "flex-end", mb: 4 }}>
           <IconButton onClick={handleDrawerToggle}>
             <CloseIcon sx={{ fontSize: "2rem" }} />
           </IconButton>
-        </Box>
-        <List sx={{ textAlign: "center" }}>
+        </Box> */}
+        <List sx={{ textAlign: "center", mt: 7 }}>
           <ListItem sx={{ justifyContent: "center" }}>
             <Link
               to="/resume"
@@ -382,76 +423,80 @@ export const ProjectsContent = ({
   justifyContent,
 }: ProjectsContentProps) => {
   var theme = useTheme();
+
+  let projects_ = projects.filter((p) => p.id !== excludeProjectById);
   return (
     <Box
       sx={{
         display: "flex",
         flexDirection: { xs: "column", md: "row" },
         justifyContent: justifyContent ?? "center",
-        gap: 5,
+        gap: { xs: 2, lg: 1 },
         pt: { xs: 4, md: 6 },
-        pb: { xs: 4, md: 2 },
+        pb: { xs: 4, md: 6 },
         px: 0,
       }}
     >
-      {projects
-        .filter((p) => p.id !== excludeProjectById)
-        .map((proj) => {
-          return (
-            <Link
-              key={proj.id}
-              to={`/projects/${proj.id}`}
-              onClick={onClick}
-              style={{ textDecoration: "none" }}
+      {projects_.map((proj) => {
+        return (
+          <Link
+            key={proj.id}
+            to={`/projects/${proj.id}`}
+            onClick={onClick}
+            style={{ textDecoration: "none" }}
+          >
+            <Box
+              sx={{
+                textAlign: "center",
+                // width: { xs: "100%", md: 1200 / projects_.length + "px" },
+                // p: 3,
+                transition: "0.3s",
+                // bgcolor: "#ffffff20",
+                "&:hover": {
+                  // bgcolor: "#ffffff50",
+                  // boxShadow: "0 0 20px #0000000a",
+                },
+              }}
             >
               <Box
+                // component="img"
+                // src={process.env.PUBLIC_URL + proj.image}
                 sx={{
-                  textAlign: "center",
-                  width: { xs: "100%", md: "20vw" },
-                  // p: 3,
-                  transition: "0.3s",
-                  // bgcolor: "#ffffff20",
-                  "&:hover": {
-                    // bgcolor: "#ffffff50",
-                    // boxShadow: "0 0 20px #0000000a",
+                  width: "100%",
+                  height: { lg: "140px", xs: "200px" },
+                  // mb: {lg:2, xs:0},
+                  mb: 0,
+                  // aspectRatio: "48:31",
+                  backgroundSize: "96%",
+                  transition: "0.2s all",
+                  backgroundRepeat: "no-repeat",
+                  backgroundPosition: "center",
+
+                  backgroundImage:
+                    "url(" + process.env.PUBLIC_URL + proj.image + ")",
+                  ":hover": {
+                    backgroundSize: "100%",
                   },
                 }}
+              />
+              <Typography
+                variant="body1"
+                sx={{
+                  fontSize: "0.8rem !important",
+                  fontWeight: 700,
+                  textTransform: "uppercase",
+                  color: "primary.main",
+                  letterSpacing: 1,
+                  width: "90%",
+                  margin: "auto",
+                }}
               >
-                <Box
-                  // component="img"
-                  // src={process.env.PUBLIC_URL + proj.image}
-                  sx={{
-                    width: "100%",
-                    height: "248px",
-                    mb: 2,
-                    aspectRatio: "48:31",
-                    backgroundSize: "96%",
-                    transition: "0.3s all",
-                    backgroundRepeat: "no-repeat",
-                    backgroundPosition: "center",
-
-                    backgroundImage:
-                      "url(" + process.env.PUBLIC_URL + proj.image + ")",
-                    ":hover": {
-                      backgroundSize: "100%",
-                    },
-                  }}
-                />
-                <Typography
-                  variant="body2"
-                  sx={{
-                    fontWeight: 700,
-                    textTransform: "uppercase",
-                    color: "primary.main",
-                    letterSpacing: 1,
-                  }}
-                >
-                  {proj.title}
-                </Typography>
-              </Box>
-            </Link>
-          );
-        })}
+                {proj.title}
+              </Typography>
+            </Box>
+          </Link>
+        );
+      })}
     </Box>
   );
 };

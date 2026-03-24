@@ -58,7 +58,7 @@ export const ProjectTimeline = ({ projects }: TimelineProps) => {
         display: { xs: "none", lg: "flex" },
         flexDirection: "column",
         gap: 4,
-        zIndex: 100,
+        zIndex: -1,
         opacity: isVisible ? 1 : 0,
         visibility: isVisible ? "visible" : "hidden",
         pointerEvents: isVisible ? "auto" : "none",
@@ -120,7 +120,7 @@ export const ProjectTimeline = ({ projects }: TimelineProps) => {
 
               <Typography
                 sx={{
-                  fontSize: "0.7rem",
+                  fontSize: "0.7rem !important",
                   fontWeight: 700,
                   textTransform: "uppercase",
                   letterSpacing: 1.5,

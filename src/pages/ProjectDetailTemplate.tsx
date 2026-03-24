@@ -105,6 +105,7 @@ export const ProjectDetailTemplate: React.FC<ProjectDetailProps> = ({
           <DevicePreview
             baseImg={project.image}
             hoverImg={project.hoverImage}
+            mobileImg={project.mobileImage!}
             height={{ xs: "190px", sm: "350px", lg: "40vh" }}
           />
         }
@@ -139,7 +140,8 @@ export const ProjectDetailTemplate: React.FC<ProjectDetailProps> = ({
           <Box
             sx={{
               display: "flex",
-              position: "absolute",
+              position: window.screen.height < 844 ? "static" : "absolute",
+              mt: window.screen.height < 844 ? "20px" : 0,
               bottom: 0,
             }}
           >
@@ -191,24 +193,26 @@ export const ProjectDetailTemplate: React.FC<ProjectDetailProps> = ({
             </Typography>
           </Reveal>
           {content(project.solution.content)}
-          {project.solution.images.length > 1 ? (
-            <ProjectSlideshow
-              images={project.solution.images}
-            ></ProjectSlideshow>
-          ) : (
-            <Box
-              component="img"
-              src={process.env.PUBLIC_URL + project.solution.images[0]}
-              alt={"project screenshot"}
-              sx={{
-                width: "100%",
-                borderRadius: "12px",
-                display: "block",
-                mt: "10vh",
-                mb: "15vh",
-              }}
-            />
-          )}
+          <Reveal direction="up">
+            {project.solution.images.length > 1 ? (
+              <ProjectSlideshow
+                images={project.solution.images}
+              ></ProjectSlideshow>
+            ) : (
+              <Box
+                component="img"
+                src={process.env.PUBLIC_URL + project.solution.images[0]}
+                alt={"project screenshot"}
+                sx={{
+                  width: "100%",
+                  borderRadius: "12px",
+                  display: "block",
+                  mt: "10vh",
+                  mb: "15vh",
+                }}
+              />
+            )}
+          </Reveal>
         </Box>
 
         {/* 3. DYNAMIC SECTIONS */}

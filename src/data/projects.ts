@@ -23,8 +23,8 @@ export interface Project {
   cover: string;
   image: string;
   hoverImage: string;
+  mobileImage: string | null;
   techStack: string[];
-
   sections: ProjectSection[];
   visitWebsite: string;
 }
@@ -41,19 +41,19 @@ export const projects: Project[] = [
       "AWS Lambda",
       "REST APIs",
       "CSV-driven configuration",
-      "PDF generation",
+      "DOC generation",
     ],
     introduction: {
       title: "Introduction",
       subTitle: "Enterprise Design Solution",
       content: [
-        "An enterprise-grade platform for airlines to customize aircraft interiors via an |interactive 3D interface|. Built with React and |Three.js|, the system provides real-time visualization of modular components and materials. The architecture is |fully data-driven|, utilizing centralized CSV structures for dynamic UI generation and pricing logic. Featuring |animated camera transitions| and AWS Lambda integration, it streamlines the workflow from initial design to |automated PDF order summaries|.",
+        "An enterprise-grade platform for airlines to customize aircraft interiors via an |interactive 3D interface|. Built with React and |Three.js|, the system provides real-time visualization of modular components and materials. The architecture is |fully data-driven|, utilizing centralized CSV structures for dynamic UI generation and pricing logic. Featuring |animated camera transitions| and AWS Lambda integration, it streamlines the workflow from initial design to |automated DOC order summaries|.",
       ],
       images: [],
     },
     image: "/assets/22-3d-config.png",
     hoverImage: "/assets/23-3d-config.png",
-
+    mobileImage: null,
     cover: "/assets/3d-config-cover.png",
     requirements: {
       title: "Client Requirements",
@@ -64,7 +64,7 @@ export const projects: Project[] = [
         "A guided configuration workflow featuring smooth camera transitions and real-time pricing updates.",
         "An advanced engine managing complex dependencies and validation rules through a fully data-driven structure.",
         "A dynamic UI generated entirely from configuration data, eliminating hardcoded logic for maximum scalability.",
-        "Full lifecycle management supporting persistent drafts, administrative control, and automated PDF summaries.",
+        "Full lifecycle management supporting persistent drafts, administrative control, and automated DOC summaries.",
       ],
       images: [],
     },
@@ -122,11 +122,11 @@ export const projects: Project[] = [
             images: [],
           },
           {
-            title: "Automated PDF Generation",
-            subTitle: "Automated PDF Generation",
+            title: "Automated DOC Generation",
+            subTitle: "Automated DOC Generation",
 
             content: [
-              "Upon submission, configuration data is injected into a predefined PDF template to generate a structured order summary for clients.",
+              "Upon submission, configuration data is injected into a predefined DOC template to generate a structured order summary for clients.",
               "This automated document generation ensures consistency, accuracy, and operational efficiency.",
             ],
             images: [],
@@ -138,7 +138,7 @@ export const projects: Project[] = [
         title: "Impact",
         subTitle: "Operational Efficiency & UX",
         content: [
-          "Delivered a |scalable 3D configuration system| that eliminates hardcoded UI logic through a |fully data-driven architecture|. The platform elevated the user experience with |guided camera animations| and real-time feedback, while |streamlining operational workflows| via automated PDF generation and |centralized pricing management|.",
+          "Delivered a |scalable 3D configuration system| that eliminates hardcoded UI logic through a |fully data-driven architecture|. The platform elevated the user experience with |guided camera animations| and real-time feedback, while |streamlining operational workflows| via automated DOC generation and |centralized pricing management|.",
         ],
         images: [],
       },
@@ -155,21 +155,21 @@ export const projects: Project[] = [
       "REST APIs",
       "Canvas Rendering",
       "Data-driven architecture",
-      "PDF generation",
+      "DOC generation",
     ],
     introduction: {
       title: "Introduction",
       subTitle: "Modular 360° Visualization",
       content: [
-        "A high-performance configurator utilizing |frame-based rendering| to simulate smooth 360° rotation without 3D overhead. The system uses |layered image stacks| to allow instant updates of paints and trims without reloading frames. Built on a |modular, data-driven architecture|, it dynamically generates logic and UI from a central source, supporting persistent storage and |automated PDF summaries| for a seamless, scalable customization workflow.",
+        "A high-performance configurator utilizing |frame-based rendering| to simulate smooth 360° rotation without 3D overhead. The system uses |layered image stacks| to allow instant updates of paints and trims without reloading frames. Built on a |modular, data-driven architecture|, it dynamically generates logic and UI from a central source, supporting persistent storage and |automated DOC summaries| for a seamless, scalable customization workflow.",
       ],
       images: [],
     },
-    // "A high-performance configurator utilizing |frame-based rendering| to simulate smooth 360° rotation without 3D overhead. The system uses |layered image stacks| to allow instant updates of paints and trims without reloading frames. Built on a |modular, data-driven architecture|, it dynamically generates logic and UI from a central source, supporting persistent storage and |automated PDF summaries| for a seamless, scalable customization workflow.",
+    // "A high-performance configurator utilizing |frame-based rendering| to simulate smooth 360° rotation without 3D overhead. The system uses |layered image stacks| to allow instant updates of paints and trims without reloading frames. Built on a |modular, data-driven architecture|, it dynamically generates logic and UI from a central source, supporting persistent storage and |automated DOC summaries| for a seamless, scalable customization workflow.",
     image: "/assets/17-2d-config-.png",
     hoverImage: "/assets/18-2d-config-.png",
-
     cover: "/assets/2d-config-cover.png",
+    mobileImage: null,
 
     requirements: {
       title: "Client Requirements",
@@ -178,7 +178,7 @@ export const projects: Project[] = [
         "A high-performance 360° engine enabling interactive drag-to-rotate navigation without the overhead of real-time 3D rendering.",
         "A layered rendering architecture allowing instant customization of paints, materials, and trims without full image reloads.",
         "A data-driven configuration engine that automatically generates the UI and manages complex modular dependencies.",
-        "Integrated state persistence and export tools for saving configurations, capturing screenshots, and generating structured PDF summaries.",
+        "Integrated state persistence and export tools for saving configurations, capturing screenshots, and generating structured DOC summaries.",
         "A fully scalable framework designed for rapid deployment and adaptation across diverse vehicle models and variations.",
       ],
       images: [],
@@ -220,12 +220,12 @@ export const projects: Project[] = [
             images: [],
           },
           {
-            title: "Screenshot & PDF Generation",
-            subTitle: "Screenshot & PDF Generation",
+            title: "Screenshot & DOC Generation",
+            subTitle: "Screenshot & DOC Generation",
 
             content: [
               "Users can download high-quality screenshots of their configured vehicle directly from the application.",
-              "At the end of the configuration process, a structured PDF summary is generated containing selected options and pricing details.",
+              "At the end of the configuration process, a structured DOC summary is generated containing selected options and pricing details.",
               "Automated document generation ensures consistency and supports internal sales workflows.",
             ],
             images: [],
@@ -237,7 +237,7 @@ export const projects: Project[] = [
         title: "Impact",
         subTitle: "Performance & Conversion",
         content: [
-          "Delivered a |performant 360° vehicle configurator| without heavy 3D overhead, utilizing an |optimized layered stacking architecture|. The system enables |scalable, model-agnostic configuration| through data-driven UI generation, while boosting engagement with |smooth drag-based interaction|. Operational efficiency was achieved through |instant visual feedback| and automated |sales-ready PDF summaries|.",
+          "Delivered a |performant 360° vehicle configurator| without heavy 3D overhead, utilizing an |optimized layered stacking architecture|. The system enables |scalable, model-agnostic configuration| through data-driven UI generation, while boosting engagement with |smooth drag-based interaction|. Operational efficiency was achieved through |instant visual feedback| and automated |sales-ready DOC summaries|.",
         ],
         images: [],
       },
@@ -260,12 +260,13 @@ export const projects: Project[] = [
       title: "Introduction",
       subTitle: "Operational Control Plane",
       content: [
-        "A centralized |administrative dashboard| designed to manage users and configurations for the 3D Plane Seat Configurator. The system acts as a |Single Source of Truth|, utilizing an S3-hosted CSV architecture to synchronize pricing and logic across both the client and admin platforms. Built with |AWS Cognito| for secure role-based access, it provides full lifecycle management of user accounts, |real-time cost breakdown control|, and direct oversight of custom asset uploads.",
+        "A centralized |administrative dashboard| acting as the |Single Source of Truth| for the 3D Plane Seat Configurator. Utilizing an |S3-hosted CSV architecture|, it synchronizes pricing and logic across platforms while providing |AWS Cognito-secured| management of user lifecycles, |real-time cost breakdowns|, and custom asset uploads.",
       ],
       images: [],
     },
     image: "/assets/24-admin-app-01.png",
     hoverImage: "/assets/25-admin-app-02.png",
+    mobileImage: null,
     cover: "/assets/admin-portal-cover.png",
     requirements: {
       title: "Client Requirements",
@@ -274,7 +275,7 @@ export const projects: Project[] = [
         "A secure management interface with robust user CRUD operations and account verification workflows.",
         "Live data-driven synchronization of configuration rules and pricing via centralized S3 storage.",
         "Comprehensive user activity monitoring, including last-login tracking and inactivity filtering.",
-        "Centralized access to user-submitted assets and automated PDF order summaries.",
+        "Centralized access to user-submitted assets and automated DOC order summaries.",
         "Granular account status control including manual verification and automated activation emails.",
       ],
       images: [],
@@ -308,7 +309,7 @@ export const projects: Project[] = [
             content: [
               "Engineered the |CSV synchronization layer|, allowing admins to adjust cost-breakdowns without writing a single line of code.",
               "Created a |centralized file viewer| for user-uploaded customization specs stored in |AWS S3|.",
-              "Shared the |PDF generation logic| between the client and admin apps to ensure 100% document consistency.",
+              "Shared the |DOC generation logic| between the client and admin apps to ensure 100% document consistency.",
             ],
             images: [],
           },
@@ -328,7 +329,7 @@ export const projects: Project[] = [
   },
   {
     id: "examiner-avatar-simulator",
-    title: "AI Examiner Avatar Simulator",
+    title: "Examiner Avatar Simulator",
     role: "Lead Frontend Developer",
     techStack: [
       "React.js",
@@ -346,9 +347,10 @@ export const projects: Project[] = [
       ],
       images: [],
     },
-    image: "/assets/21-avatar-01.png", // Replace with your path
-    hoverImage: "/assets/22-avatar-02.png", // Replace with your path
-    cover: "", // Replace with your path
+    image: "/assets/21-avatar-01.png",
+    hoverImage: "/assets/22-avatar-02.png",
+    mobileImage: null,
+    cover: "",
     requirements: {
       title: "Client Requirements",
       subTitle: "Scope Overview",
@@ -417,7 +419,7 @@ export const projects: Project[] = [
       "TypeScript",
       "REST APIs",
       "Multilingual Architecture",
-      "Dynamic Content Rendering",
+      "Dynamic Content",
       "Role-Based CMS",
       "Atomic UI Design System",
     ],
@@ -431,7 +433,7 @@ export const projects: Project[] = [
     },
     image: "/assets/19-tap-payments.png",
     hoverImage: "/assets/20-tap-payments.png",
-
+    mobileImage: "/assets/21-tap-payments.png",
     cover: "/assets/tap-payments-cover.webp",
 
     requirements: {

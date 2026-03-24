@@ -31,8 +31,11 @@ export const HeroSection = ({
     <Box sx={sectionBaseStyles}>
       <Box
         sx={{
-          px: 4,
-          mt: { xs: "-3vh", lg: "-8vh" },
+          px: { xs: 0, lg: 4 },
+          mt: {
+            xs: window.screen.height < 844 ? "3vh" : "-3vh",
+            lg: "-8vh",
+          },
           textAlign: "center",
           maxWidth: "1200px",
           //   minWidth: { xs: "190px", lg: "auto" },
@@ -72,7 +75,7 @@ export const HeroSection = ({
           <Typography
             variant="h2"
             sx={{
-              mb: 6,
+              mb: { xs: window.screen.height < 844 ? 2 : 6, lg: 6 },
               color: "secondary.main",
               fontWeight: 300,
               textTransform: "uppercase",
@@ -104,11 +107,11 @@ export const HeroSection = ({
           <Reveal direction="up" delay={0.8}>
             <Stack
               direction="row"
-              spacing={1.5}
+              spacing={1}
+              // spacing={{ xs: 1, lg: 1.5 }}
               justifyContent="center"
               flexWrap="wrap"
               useFlexGap
-              //   sx={{ maxWidth: "800px", margin: "0 auto" }}
             >
               {chips?.map((tech) => (
                 <NavChip key={tech} label={tech} />
@@ -122,7 +125,8 @@ export const HeroSection = ({
       <Box
         sx={{
           display: "flex",
-          position: "absolute",
+          position: window.screen.height < 844 ? "static" : "absolute",
+          mt: window.screen.height < 844 ? "20px" : 0,
           bottom: { lg: 0, xs: "30px" },
         }}
       >

@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, useTheme, alpha } from "@mui/material";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { EffectCoverflow, Pagination, Navigation } from "swiper/modules";
+import { EffectCoverflow, Pagination } from "swiper/modules";
 
 // Import Swiper styles
 import "swiper/css";
@@ -21,27 +21,30 @@ export const ProjectSlideshow = ({ images }: Props) => {
       sx={{
         width: "100%",
         py: 8,
+        overflow: "hidden", // Prevents horizontal scrollbar during transitions
         "& .swiper": {
           width: "100%",
-          paddingTop: "50px",
-          paddingBottom: "50px",
-        },
-        ".swiper-coverflow": {
-          // overflow: "visible",
+          paddingY: "50px",
+          perspective: "1200px", // Adds depth to the 3D effect
         },
         "& .swiper-slide": {
-          backgroundPosition: "center",
-          backgroundSize: "cover",
-          width: { xs: "280px", md: "80%" }, // Adjust size based on your screenshots
-          height: { xs: "200px", md: "auto" },
-          filter: "blur(0.5px)",
-          transition: "filter 0.3s ease",
+          width: { xs: "300px", md: "900px" }, // Fixed widths work better for Coverflow
+          height: "auto",
+          transition: "opacity 0.3s ease", // Only transition opacity, NOT filter or transform
+          opacity: 0.4,
+          "& img": {
+            display: "block",
+            width: "100%",
+            borderRadius: "12px",
+            // Force hardware acceleration for the image itself
+            backfaceVisibility: "hidden",
+            transform: "translateZ(0)",
+          },
         },
         "& .swiper-slide-active": {
-          filter: "blur(0px)",
-        },
-        "& .swiper-pagination-bullet-active": {
-          backgroundColor: theme.palette.secondary.main,
+          opacity: 1,
+          zIndex: 10,
+          color: theme.palette.secondary.main,
         },
       }}
     >
@@ -51,12 +54,13 @@ export const ProjectSlideshow = ({ images }: Props) => {
         centeredSlides={true}
         slidesPerView={"auto"}
         loop={true}
+        speed={600} // Smoother transition speed
         coverflowEffect={{
-          rotate: 0, // Keeps images flat (minimalist)
-          stretch: 600, // Negative value pulls the side images CLOSER to the center (overlapping behind)
-          depth: 250, // Higher value pushes side images further "back" in 3D space
-          modifier: 1, // Effect multiplier
-          scale: 0.8, // Side images will be 80% the size of the center image
+          rotate: 0,
+          stretch: 150, // Reduced from 600 to pull them in reasonably
+          depth: 200, // Pushes side slides back
+          modifier: 1,
+          scale: 0.85, // Scale side slides
           slideShadows: false,
         }}
         pagination={{ clickable: true }}
@@ -69,12 +73,8 @@ export const ProjectSlideshow = ({ images }: Props) => {
               src={process.env.PUBLIC_URL + src}
               alt={`Project screenshot ${index}`}
               sx={{
-                width: "100%",
-                height: "100%",
-                objectFit: "cover",
-                borderRadius: "8px",
-                border: `1px solid ${alpha(theme.palette.text.primary, 0.1)}`,
-                boxShadow: "0 10px 30px rgba(0,0,0,0.1)",
+                boxShadow: "0 20px 40px rgba(0,0,0,0.2)",
+                border: `1px solid ${alpha(theme.palette.divider, 0.1)}`,
               }}
             />
           </SwiperSlide>
